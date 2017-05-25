@@ -1,0 +1,187 @@
+
+GccApplication1.elf:     file format elf32-avr
+
+Sections:
+Idx Name          Size      VMA       LMA       File off  Algn
+  0 .text         000000aa  00000000  00000000  00000054  2**1
+                  CONTENTS, ALLOC, LOAD, READONLY, CODE
+  1 .comment      00000030  00000000  00000000  000000fe  2**0
+                  CONTENTS, READONLY
+  2 .debug_aranges 00000028  00000000  00000000  0000012e  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  3 .debug_info   000001b1  00000000  00000000  00000156  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  4 .debug_abbrev 00000138  00000000  00000000  00000307  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  5 .debug_line   00000170  00000000  00000000  0000043f  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  6 .debug_frame  00000034  00000000  00000000  000005b0  2**2
+                  CONTENTS, READONLY, DEBUGGING
+  7 .debug_str    0000017a  00000000  00000000  000005e4  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  8 .debug_loc    000000d1  00000000  00000000  0000075e  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  9 .debug_ranges 00000030  00000000  00000000  0000082f  2**0
+                  CONTENTS, READONLY, DEBUGGING
+
+Disassembly of section .text:
+
+00000000 <__vectors>:
+   0:	12 c0       	rjmp	.+36     	; 0x26 <__ctors_end>
+   2:	19 c0       	rjmp	.+50     	; 0x36 <__bad_interrupt>
+   4:	18 c0       	rjmp	.+48     	; 0x36 <__bad_interrupt>
+   6:	17 c0       	rjmp	.+46     	; 0x36 <__bad_interrupt>
+   8:	16 c0       	rjmp	.+44     	; 0x36 <__bad_interrupt>
+   a:	15 c0       	rjmp	.+42     	; 0x36 <__bad_interrupt>
+   c:	14 c0       	rjmp	.+40     	; 0x36 <__bad_interrupt>
+   e:	13 c0       	rjmp	.+38     	; 0x36 <__bad_interrupt>
+  10:	12 c0       	rjmp	.+36     	; 0x36 <__bad_interrupt>
+  12:	11 c0       	rjmp	.+34     	; 0x36 <__bad_interrupt>
+  14:	10 c0       	rjmp	.+32     	; 0x36 <__bad_interrupt>
+  16:	0f c0       	rjmp	.+30     	; 0x36 <__bad_interrupt>
+  18:	0e c0       	rjmp	.+28     	; 0x36 <__bad_interrupt>
+  1a:	0d c0       	rjmp	.+26     	; 0x36 <__bad_interrupt>
+  1c:	0c c0       	rjmp	.+24     	; 0x36 <__bad_interrupt>
+  1e:	0b c0       	rjmp	.+22     	; 0x36 <__bad_interrupt>
+  20:	0a c0       	rjmp	.+20     	; 0x36 <__bad_interrupt>
+  22:	09 c0       	rjmp	.+18     	; 0x36 <__bad_interrupt>
+  24:	08 c0       	rjmp	.+16     	; 0x36 <__bad_interrupt>
+
+00000026 <__ctors_end>:
+  26:	11 24       	eor	r1, r1
+  28:	1f be       	out	0x3f, r1	; 63
+  2a:	cf e5       	ldi	r28, 0x5F	; 95
+  2c:	d4 e0       	ldi	r29, 0x04	; 4
+  2e:	de bf       	out	0x3e, r29	; 62
+  30:	cd bf       	out	0x3d, r28	; 61
+  32:	09 d0       	rcall	.+18     	; 0x46 <main>
+  34:	38 c0       	rjmp	.+112    	; 0xa6 <_exit>
+
+00000036 <__bad_interrupt>:
+  36:	e4 cf       	rjmp	.-56     	; 0x0 <__vectors>
+
+00000038 <preset>:
+#include <util/delay.h>
+#define F_CPU 8000000
+
+void preset()
+{
+	DDRC = 0xff;
+  38:	8f ef       	ldi	r24, 0xFF	; 255
+  3a:	84 bb       	out	0x14, r24	; 20
+	PORTC = 0x00;
+  3c:	15 ba       	out	0x15, r1	; 21
+	DDRD = 0x00;
+  3e:	11 ba       	out	0x11, r1	; 17
+	PORTD = 0b00000001;
+  40:	81 e0       	ldi	r24, 0x01	; 1
+  42:	82 bb       	out	0x12, r24	; 18
+  44:	08 95       	ret
+
+00000046 <main>:
+}
+
+
+int main(void)
+{
+	preset();
+  46:	f8 df       	rcall	.-16     	; 0x38 <preset>
+			PORTC = (PORTC<<1);
+			_delay_ms(1500);
+		}
+		
+	   }
+	   else {PORTC = 0xff;
+  48:	6f ef       	ldi	r22, 0xFF	; 255
+       PORTC = 0x00;
+	   
+	   if(!PIND)
+	   {
+		   
+	    PORTC = 0b00000001;
+  4a:	51 e0       	ldi	r21, 0x01	; 1
+	#else
+		//round up by default
+		__ticks_dc = (uint32_t)(ceil(fabs(__tmp)));
+	#endif
+
+	__builtin_avr_delay_cycles(__ticks_dc);
+  4c:	47 e0       	ldi	r20, 0x07	; 7
+  4e:	30 e0       	ldi	r19, 0x00	; 0
+{
+	preset();
+	
+    while(1)
+    {
+       PORTC = 0x00;
+  50:	15 ba       	out	0x15, r1	; 21
+	   
+	   if(!PIND)
+  52:	80 b3       	in	r24, 0x10	; 16
+  54:	81 11       	cpse	r24, r1
+  56:	1c c0       	rjmp	.+56     	; 0x90 <main+0x4a>
+	   {
+		   
+	    PORTC = 0b00000001;
+  58:	55 bb       	out	0x15, r21	; 21
+  5a:	2f ed       	ldi	r18, 0xDF	; 223
+  5c:	73 e9       	ldi	r23, 0x93	; 147
+  5e:	84 e0       	ldi	r24, 0x04	; 4
+  60:	21 50       	subi	r18, 0x01	; 1
+  62:	70 40       	sbci	r23, 0x00	; 0
+  64:	80 40       	sbci	r24, 0x00	; 0
+  66:	e1 f7       	brne	.-8      	; 0x60 <main+0x1a>
+  68:	00 c0       	rjmp	.+0      	; 0x6a <main+0x24>
+  6a:	00 00       	nop
+  6c:	84 2f       	mov	r24, r20
+  6e:	93 2f       	mov	r25, r19
+		_delay_ms(1500);
+		
+		for (int i =0; i<7; i++)
+		{
+			PORTC = (PORTC<<1);
+  70:	25 b3       	in	r18, 0x15	; 21
+  72:	22 0f       	add	r18, r18
+  74:	25 bb       	out	0x15, r18	; 21
+  76:	ef ed       	ldi	r30, 0xDF	; 223
+  78:	23 e9       	ldi	r18, 0x93	; 147
+  7a:	74 e0       	ldi	r23, 0x04	; 4
+  7c:	e1 50       	subi	r30, 0x01	; 1
+  7e:	20 40       	sbci	r18, 0x00	; 0
+  80:	70 40       	sbci	r23, 0x00	; 0
+  82:	e1 f7       	brne	.-8      	; 0x7c <main+0x36>
+  84:	00 c0       	rjmp	.+0      	; 0x86 <main+0x40>
+  86:	00 00       	nop
+  88:	01 97       	sbiw	r24, 0x01	; 1
+	   {
+		   
+	    PORTC = 0b00000001;
+		_delay_ms(1500);
+		
+		for (int i =0; i<7; i++)
+  8a:	00 97       	sbiw	r24, 0x00	; 0
+  8c:	89 f7       	brne	.-30     	; 0x70 <main+0x2a>
+  8e:	e0 cf       	rjmp	.-64     	; 0x50 <main+0xa>
+			PORTC = (PORTC<<1);
+			_delay_ms(1500);
+		}
+		
+	   }
+	   else {PORTC = 0xff;
+  90:	65 bb       	out	0x15, r22	; 21
+  92:	8f eb       	ldi	r24, 0xBF	; 191
+  94:	97 e2       	ldi	r25, 0x27	; 39
+  96:	e9 e0       	ldi	r30, 0x09	; 9
+  98:	81 50       	subi	r24, 0x01	; 1
+  9a:	90 40       	sbci	r25, 0x00	; 0
+  9c:	e0 40       	sbci	r30, 0x00	; 0
+  9e:	e1 f7       	brne	.-8      	; 0x98 <main+0x52>
+  a0:	00 c0       	rjmp	.+0      	; 0xa2 <main+0x5c>
+  a2:	00 00       	nop
+  a4:	d5 cf       	rjmp	.-86     	; 0x50 <main+0xa>
+
+000000a6 <_exit>:
+  a6:	f8 94       	cli
+
+000000a8 <__stop_program>:
+  a8:	ff cf       	rjmp	.-2      	; 0xa8 <__stop_program>

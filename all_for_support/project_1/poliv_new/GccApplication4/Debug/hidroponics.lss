@@ -1,0 +1,574 @@
+
+hidroponics.elf:     file format elf32-avr
+
+Sections:
+Idx Name          Size      VMA       LMA       File off  Algn
+  0 .text         000002e2  00000000  00000000  00000074  2**1
+                  CONTENTS, ALLOC, LOAD, READONLY, CODE
+  1 .bss          0000000d  00800060  00800060  00000356  2**0
+                  ALLOC
+  2 .comment      00000030  00000000  00000000  00000356  2**0
+                  CONTENTS, READONLY
+  3 .debug_aranges 00000068  00000000  00000000  00000386  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  4 .debug_info   000003dd  00000000  00000000  000003ee  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  5 .debug_abbrev 00000169  00000000  00000000  000007cb  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  6 .debug_line   000001ff  00000000  00000000  00000934  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  7 .debug_frame  000000c8  00000000  00000000  00000b34  2**2
+                  CONTENTS, READONLY, DEBUGGING
+  8 .debug_str    00000223  00000000  00000000  00000bfc  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  9 .debug_loc    00000075  00000000  00000000  00000e1f  2**0
+                  CONTENTS, READONLY, DEBUGGING
+ 10 .debug_ranges 00000058  00000000  00000000  00000e94  2**0
+                  CONTENTS, READONLY, DEBUGGING
+
+Disassembly of section .text:
+
+00000000 <__vectors>:
+   0:	12 c0       	rjmp	.+36     	; 0x26 <__ctors_end>
+   2:	21 c0       	rjmp	.+66     	; 0x46 <__bad_interrupt>
+   4:	20 c0       	rjmp	.+64     	; 0x46 <__bad_interrupt>
+   6:	1f c0       	rjmp	.+62     	; 0x46 <__bad_interrupt>
+   8:	1e c0       	rjmp	.+60     	; 0x46 <__bad_interrupt>
+   a:	1d c0       	rjmp	.+58     	; 0x46 <__bad_interrupt>
+   c:	1c c0       	rjmp	.+56     	; 0x46 <__bad_interrupt>
+   e:	1b c0       	rjmp	.+54     	; 0x46 <__bad_interrupt>
+  10:	1a c0       	rjmp	.+52     	; 0x46 <__bad_interrupt>
+  12:	74 c0       	rjmp	.+232    	; 0xfc <__vector_9>
+  14:	18 c0       	rjmp	.+48     	; 0x46 <__bad_interrupt>
+  16:	17 c0       	rjmp	.+46     	; 0x46 <__bad_interrupt>
+  18:	16 c0       	rjmp	.+44     	; 0x46 <__bad_interrupt>
+  1a:	15 c0       	rjmp	.+42     	; 0x46 <__bad_interrupt>
+  1c:	14 c0       	rjmp	.+40     	; 0x46 <__bad_interrupt>
+  1e:	13 c0       	rjmp	.+38     	; 0x46 <__bad_interrupt>
+  20:	12 c0       	rjmp	.+36     	; 0x46 <__bad_interrupt>
+  22:	11 c0       	rjmp	.+34     	; 0x46 <__bad_interrupt>
+  24:	10 c0       	rjmp	.+32     	; 0x46 <__bad_interrupt>
+
+00000026 <__ctors_end>:
+  26:	11 24       	eor	r1, r1
+  28:	1f be       	out	0x3f, r1	; 63
+  2a:	cf e5       	ldi	r28, 0x5F	; 95
+  2c:	d4 e0       	ldi	r29, 0x04	; 4
+  2e:	de bf       	out	0x3e, r29	; 62
+  30:	cd bf       	out	0x3d, r28	; 61
+
+00000032 <__do_clear_bss>:
+  32:	20 e0       	ldi	r18, 0x00	; 0
+  34:	a0 e6       	ldi	r26, 0x60	; 96
+  36:	b0 e0       	ldi	r27, 0x00	; 0
+  38:	01 c0       	rjmp	.+2      	; 0x3c <.do_clear_bss_start>
+
+0000003a <.do_clear_bss_loop>:
+  3a:	1d 92       	st	X+, r1
+
+0000003c <.do_clear_bss_start>:
+  3c:	ad 36       	cpi	r26, 0x6D	; 109
+  3e:	b2 07       	cpc	r27, r18
+  40:	e1 f7       	brne	.-8      	; 0x3a <.do_clear_bss_loop>
+  42:	f7 d0       	rcall	.+494    	; 0x232 <main>
+  44:	4c c1       	rjmp	.+664    	; 0x2de <_exit>
+
+00000046 <__bad_interrupt>:
+  46:	dc cf       	rjmp	.-72     	; 0x0 <__vectors>
+
+00000048 <preset>:
+bool polivIsON = false;
+
+
+void preset()
+{
+	DDRD = 0xff; 
+  48:	8f ef       	ldi	r24, 0xFF	; 255
+  4a:	81 bb       	out	0x11, r24	; 17
+	DDRC = 0x00;
+  4c:	14 ba       	out	0x14, r1	; 20
+	PORTD = 0xff;
+  4e:	82 bb       	out	0x12, r24	; 18
+	PORTC = 0xff;
+  50:	85 bb       	out	0x15, r24	; 21
+	PORTB = 0xff;
+  52:	88 bb       	out	0x18, r24	; 24
+  54:	08 95       	ret
+
+00000056 <setTimer>:
+	//Lcd_init();
+}
+
+void setTimer()
+{
+	TCCR0 |= (1<<CS02) | (0<<CS01) | (1<<CS00);
+  56:	83 b7       	in	r24, 0x33	; 51
+  58:	85 60       	ori	r24, 0x05	; 5
+  5a:	83 bf       	out	0x33, r24	; 51
+	TIMSK |= (1<<TOIE0);
+  5c:	89 b7       	in	r24, 0x39	; 57
+  5e:	81 60       	ori	r24, 0x01	; 1
+  60:	89 bf       	out	0x39, r24	; 57
+	sei();
+  62:	78 94       	sei
+  64:	08 95       	ret
+
+00000066 <setWatchdog>:
+}
+
+void setWatchdog()
+{
+	WDTCR=0x1F;
+  66:	8f e1       	ldi	r24, 0x1F	; 31
+  68:	81 bd       	out	0x21, r24	; 33
+	WDTCR=0x0F;
+  6a:	8f e0       	ldi	r24, 0x0F	; 15
+  6c:	81 bd       	out	0x21, r24	; 33
+  6e:	08 95       	ret
+
+00000070 <Chasi>:
+}
+
+void Chasi()
+{
+	sec = (tik/30);
+  70:	20 91 62 00 	lds	r18, 0x0062
+  74:	30 91 63 00 	lds	r19, 0x0063
+  78:	c9 01       	movw	r24, r18
+  7a:	6e e1       	ldi	r22, 0x1E	; 30
+  7c:	70 e0       	ldi	r23, 0x00	; 0
+  7e:	08 d1       	rcall	.+528    	; 0x290 <__divmodhi4>
+  80:	86 2f       	mov	r24, r22
+  82:	60 93 67 00 	sts	0x0067, r22
+	if (tik>30)
+  86:	2f 31       	cpi	r18, 0x1F	; 31
+  88:	31 05       	cpc	r19, r1
+  8a:	6c f0       	brlt	.+26     	; 0xa6 <Chasi+0x36>
+	{
+		tik = 0;
+  8c:	10 92 63 00 	sts	0x0063, r1
+  90:	10 92 62 00 	sts	0x0062, r1
+		if (polivTriger){polivCounter++;}
+  94:	90 91 69 00 	lds	r25, 0x0069
+  98:	99 23       	and	r25, r25
+  9a:	29 f0       	breq	.+10     	; 0xa6 <Chasi+0x36>
+  9c:	90 91 6b 00 	lds	r25, 0x006B
+  a0:	9f 5f       	subi	r25, 0xFF	; 255
+  a2:	90 93 6b 00 	sts	0x006B, r25
+			
+	}
+		
+	if (sec>60)
+  a6:	8d 33       	cpi	r24, 0x3D	; 61
+  a8:	48 f0       	brcs	.+18     	; 0xbc <Chasi+0x4c>
+	{
+		min += 1;
+  aa:	80 91 66 00 	lds	r24, 0x0066
+  ae:	8f 5f       	subi	r24, 0xFF	; 255
+  b0:	80 93 66 00 	sts	0x0066, r24
+		tik = 0;
+  b4:	10 92 63 00 	sts	0x0063, r1
+  b8:	10 92 62 00 	sts	0x0062, r1
+		
+	}
+	if (min>60)
+  bc:	80 91 66 00 	lds	r24, 0x0066
+  c0:	8d 33       	cpi	r24, 0x3D	; 61
+  c2:	a8 f0       	brcs	.+42     	; 0xee <Chasi+0x7e>
+	{
+		hour+=1;
+  c4:	80 91 65 00 	lds	r24, 0x0065
+  c8:	8f 5f       	subi	r24, 0xFF	; 255
+  ca:	80 93 65 00 	sts	0x0065, r24
+		polivInHours++;
+  ce:	80 91 64 00 	lds	r24, 0x0064
+  d2:	8f 5f       	subi	r24, 0xFF	; 255
+  d4:	80 93 64 00 	sts	0x0064, r24
+		if (lightTrig){lightingCounter++;}
+  d8:	80 91 68 00 	lds	r24, 0x0068
+  dc:	88 23       	and	r24, r24
+  de:	29 f0       	breq	.+10     	; 0xea <Chasi+0x7a>
+  e0:	80 91 6a 00 	lds	r24, 0x006A
+  e4:	8f 5f       	subi	r24, 0xFF	; 255
+  e6:	80 93 6a 00 	sts	0x006A, r24
+		min = 0;
+  ea:	10 92 66 00 	sts	0x0066, r1
+	}
+	if (hour>24)
+  ee:	80 91 65 00 	lds	r24, 0x0065
+  f2:	89 31       	cpi	r24, 0x19	; 25
+  f4:	10 f0       	brcs	.+4      	; 0xfa <Chasi+0x8a>
+	{
+		hour = 0;
+  f6:	10 92 65 00 	sts	0x0065, r1
+  fa:	08 95       	ret
+
+000000fc <__vector_9>:
+	}
+}
+
+ISR(TIMER0_OVF_vect)
+{
+  fc:	1f 92       	push	r1
+  fe:	0f 92       	push	r0
+ 100:	0f b6       	in	r0, 0x3f	; 63
+ 102:	0f 92       	push	r0
+ 104:	11 24       	eor	r1, r1
+ 106:	8f 93       	push	r24
+ 108:	9f 93       	push	r25
+	tik += 1;
+ 10a:	80 91 62 00 	lds	r24, 0x0062
+ 10e:	90 91 63 00 	lds	r25, 0x0063
+ 112:	01 96       	adiw	r24, 0x01	; 1
+ 114:	90 93 63 00 	sts	0x0063, r25
+ 118:	80 93 62 00 	sts	0x0062, r24
+		
+}
+ 11c:	9f 91       	pop	r25
+ 11e:	8f 91       	pop	r24
+ 120:	0f 90       	pop	r0
+ 122:	0f be       	out	0x3f, r0	; 63
+ 124:	0f 90       	pop	r0
+ 126:	1f 90       	pop	r1
+ 128:	18 95       	reti
+
+0000012a <checkWateringIntervals>:
+
+void checkWateringIntervals()
+{
+	if(bit_is_clear(PINC,2))
+ 12a:	9a 99       	sbic	0x13, 2	; 19
+ 12c:	12 c0       	rjmp	.+36     	; 0x152 <checkWateringIntervals+0x28>
+	{
+		tempPoliv = hoursToPoliv*1;
+ 12e:	81 e0       	ldi	r24, 0x01	; 1
+ 130:	80 93 6c 00 	sts	0x006C, r24
+		if(bit_is_clear(PINC,3))
+ 134:	9b 99       	sbic	0x13, 3	; 19
+ 136:	0d c0       	rjmp	.+26     	; 0x152 <checkWateringIntervals+0x28>
+		{
+			tempPoliv = hoursToPoliv*2;
+ 138:	82 e0       	ldi	r24, 0x02	; 2
+ 13a:	80 93 6c 00 	sts	0x006C, r24
+			if(bit_is_clear(PINC,4))
+ 13e:	9c 99       	sbic	0x13, 4	; 19
+ 140:	08 c0       	rjmp	.+16     	; 0x152 <checkWateringIntervals+0x28>
+			{
+				tempPoliv = hoursToPoliv*3;
+ 142:	83 e0       	ldi	r24, 0x03	; 3
+ 144:	80 93 6c 00 	sts	0x006C, r24
+				if(bit_is_clear(PINC,5))
+ 148:	9d 99       	sbic	0x13, 5	; 19
+ 14a:	03 c0       	rjmp	.+6      	; 0x152 <checkWateringIntervals+0x28>
+				{
+					tempPoliv = hoursToPoliv*4;
+ 14c:	84 e0       	ldi	r24, 0x04	; 4
+ 14e:	80 93 6c 00 	sts	0x006C, r24
+ 152:	08 95       	ret
+
+00000154 <powerswitch>:
+	}
+}
+
+void powerswitch(uint8_t obj, uint8_t condition) // obj(1-poliv; 2-light) condition(1-ON; 2-OFF)
+{
+	if (obj == 1 && condition == 1)
+ 154:	81 30       	cpi	r24, 0x01	; 1
+ 156:	51 f4       	brne	.+20     	; 0x16c <powerswitch+0x18>
+ 158:	61 30       	cpi	r22, 0x01	; 1
+ 15a:	a9 f4       	brne	.+42     	; 0x186 <powerswitch+0x32>
+	{
+		PORTD &= ~(1<<PD0);
+ 15c:	90 98       	cbi	0x12, 0	; 18
+		polivIsON = true;
+ 15e:	80 93 60 00 	sts	0x0060, r24
+ 162:	08 95       	ret
+	}
+	if (obj == 1 && condition == 2)
+	{
+		PORTD |= (1<<PD0);
+ 164:	90 9a       	sbi	0x12, 0	; 18
+		polivIsON = false;
+ 166:	10 92 60 00 	sts	0x0060, r1
+ 16a:	08 95       	ret
+	}
+	
+	if (obj == 2 && condition == 1)
+ 16c:	82 30       	cpi	r24, 0x02	; 2
+ 16e:	81 f4       	brne	.+32     	; 0x190 <powerswitch+0x3c>
+ 170:	61 30       	cpi	r22, 0x01	; 1
+ 172:	61 f4       	brne	.+24     	; 0x18c <powerswitch+0x38>
+	{
+		PORTD &= ~(1<<PD1);
+ 174:	91 98       	cbi	0x12, 1	; 18
+		lightIsON = true;
+ 176:	81 e0       	ldi	r24, 0x01	; 1
+ 178:	80 93 61 00 	sts	0x0061, r24
+ 17c:	08 95       	ret
+	}
+	if (obj == 2 && condition == 2)
+	{
+		PORTD |= (1<<PD1);
+ 17e:	91 9a       	sbi	0x12, 1	; 18
+		lightIsON = false;
+ 180:	10 92 61 00 	sts	0x0061, r1
+ 184:	08 95       	ret
+	if (obj == 1 && condition == 1)
+	{
+		PORTD &= ~(1<<PD0);
+		polivIsON = true;
+	}
+	if (obj == 1 && condition == 2)
+ 186:	62 30       	cpi	r22, 0x02	; 2
+ 188:	19 f4       	brne	.+6      	; 0x190 <powerswitch+0x3c>
+ 18a:	ec cf       	rjmp	.-40     	; 0x164 <powerswitch+0x10>
+	if (obj == 2 && condition == 1)
+	{
+		PORTD &= ~(1<<PD1);
+		lightIsON = true;
+	}
+	if (obj == 2 && condition == 2)
+ 18c:	62 30       	cpi	r22, 0x02	; 2
+ 18e:	b9 f3       	breq	.-18     	; 0x17e <powerswitch+0x2a>
+ 190:	08 95       	ret
+
+00000192 <poliv>:
+}
+
+void poliv()
+{
+	
+	if (polivCounter < wateringTime && polivTriger)
+ 192:	80 91 6b 00 	lds	r24, 0x006B
+ 196:	8c 33       	cpi	r24, 0x3C	; 60
+ 198:	88 f4       	brcc	.+34     	; 0x1bc <poliv+0x2a>
+ 19a:	80 91 69 00 	lds	r24, 0x0069
+ 19e:	88 23       	and	r24, r24
+ 1a0:	01 f1       	breq	.+64     	; 0x1e2 <poliv+0x50>
+	{
+		if (polivIsON == false) {powerswitch(1,1);}
+ 1a2:	80 91 60 00 	lds	r24, 0x0060
+ 1a6:	81 11       	cpse	r24, r1
+ 1a8:	1c c0       	rjmp	.+56     	; 0x1e2 <poliv+0x50>
+ 1aa:	61 e0       	ldi	r22, 0x01	; 1
+ 1ac:	70 e0       	ldi	r23, 0x00	; 0
+ 1ae:	81 e0       	ldi	r24, 0x01	; 1
+ 1b0:	90 e0       	ldi	r25, 0x00	; 0
+ 1b2:	d0 df       	rcall	.-96     	; 0x154 <powerswitch>
+	
+	} 
+	if (polivCounter >= wateringTime && polivTriger)
+ 1b4:	80 91 6b 00 	lds	r24, 0x006B
+ 1b8:	8c 33       	cpi	r24, 0x3C	; 60
+ 1ba:	98 f0       	brcs	.+38     	; 0x1e2 <poliv+0x50>
+ 1bc:	80 91 69 00 	lds	r24, 0x0069
+ 1c0:	88 23       	and	r24, r24
+ 1c2:	79 f0       	breq	.+30     	; 0x1e2 <poliv+0x50>
+	{
+		if (polivIsON == true) {powerswitch(1,2);}
+ 1c4:	80 91 60 00 	lds	r24, 0x0060
+ 1c8:	88 23       	and	r24, r24
+ 1ca:	29 f0       	breq	.+10     	; 0x1d6 <poliv+0x44>
+ 1cc:	62 e0       	ldi	r22, 0x02	; 2
+ 1ce:	70 e0       	ldi	r23, 0x00	; 0
+ 1d0:	81 e0       	ldi	r24, 0x01	; 1
+ 1d2:	90 e0       	ldi	r25, 0x00	; 0
+ 1d4:	bf df       	rcall	.-130    	; 0x154 <powerswitch>
+		polivInHours = 0;
+ 1d6:	10 92 64 00 	sts	0x0064, r1
+		polivTriger = 0;
+ 1da:	10 92 69 00 	sts	0x0069, r1
+		polivCounter = 0;
+ 1de:	10 92 6b 00 	sts	0x006B, r1
+ 1e2:	08 95       	ret
+
+000001e4 <light>:
+}
+
+void light()
+{
+	
+	if (lightingCounter < lightingTime && lightTrig)
+ 1e4:	80 91 6a 00 	lds	r24, 0x006A
+ 1e8:	81 11       	cpse	r24, r1
+ 1ea:	15 c0       	rjmp	.+42     	; 0x216 <light+0x32>
+ 1ec:	80 91 68 00 	lds	r24, 0x0068
+ 1f0:	88 23       	and	r24, r24
+ 1f2:	89 f0       	breq	.+34     	; 0x216 <light+0x32>
+	{
+		if (lightIsON == false) {powerswitch(2,1);}
+ 1f4:	80 91 61 00 	lds	r24, 0x0061
+ 1f8:	81 11       	cpse	r24, r1
+ 1fa:	1a c0       	rjmp	.+52     	; 0x230 <light+0x4c>
+ 1fc:	61 e0       	ldi	r22, 0x01	; 1
+ 1fe:	70 e0       	ldi	r23, 0x00	; 0
+ 200:	82 e0       	ldi	r24, 0x02	; 2
+ 202:	90 e0       	ldi	r25, 0x00	; 0
+ 204:	a7 df       	rcall	.-178    	; 0x154 <powerswitch>
+		
+	}
+	if ((lightingCounter >= lightingTime && lightTrig) || !lightTrig)
+ 206:	80 91 6a 00 	lds	r24, 0x006A
+ 20a:	81 11       	cpse	r24, r1
+ 20c:	04 c0       	rjmp	.+8      	; 0x216 <light+0x32>
+ 20e:	80 91 68 00 	lds	r24, 0x0068
+ 212:	81 11       	cpse	r24, r1
+ 214:	0d c0       	rjmp	.+26     	; 0x230 <light+0x4c>
+	{
+		if (lightIsON == true) {powerswitch(2,2);}
+ 216:	80 91 61 00 	lds	r24, 0x0061
+ 21a:	88 23       	and	r24, r24
+ 21c:	29 f0       	breq	.+10     	; 0x228 <light+0x44>
+ 21e:	62 e0       	ldi	r22, 0x02	; 2
+ 220:	70 e0       	ldi	r23, 0x00	; 0
+ 222:	82 e0       	ldi	r24, 0x02	; 2
+ 224:	90 e0       	ldi	r25, 0x00	; 0
+ 226:	96 df       	rcall	.-212    	; 0x154 <powerswitch>
+		lightingCounter = 0;
+ 228:	10 92 6a 00 	sts	0x006A, r1
+		lightTrig = 0;
+ 22c:	10 92 68 00 	sts	0x0068, r1
+ 230:	08 95       	ret
+
+00000232 <main>:
+	}
+}
+
+int main(void)
+{
+	preset();
+ 232:	0a df       	rcall	.-492    	; 0x48 <preset>
+	setTimer();
+ 234:	10 df       	rcall	.-480    	; 0x56 <setTimer>
+	setWatchdog();
+ 236:	17 df       	rcall	.-466    	; 0x66 <setWatchdog>
+		checkWateringIntervals();
+		asm("wdr");
+		
+		if(polivInHours >= tempPoliv)
+		{
+			polivTriger = 1;
+ 238:	c1 e0       	ldi	r28, 0x01	; 1
+	setTimer();
+	setWatchdog();
+	
+    while(1)
+    {
+        Chasi();
+ 23a:	1a df       	rcall	.-460    	; 0x70 <Chasi>
+		poliv();
+ 23c:	aa df       	rcall	.-172    	; 0x192 <poliv>
+		light();
+ 23e:	d2 df       	rcall	.-92     	; 0x1e4 <light>
+		checkWateringIntervals();
+ 240:	74 df       	rcall	.-280    	; 0x12a <checkWateringIntervals>
+		asm("wdr");
+ 242:	a8 95       	wdr
+		
+		if(polivInHours >= tempPoliv)
+ 244:	90 91 64 00 	lds	r25, 0x0064
+ 248:	80 91 6c 00 	lds	r24, 0x006C
+ 24c:	98 17       	cp	r25, r24
+ 24e:	10 f0       	brcs	.+4      	; 0x254 <main+0x22>
+		{
+			polivTriger = 1;
+ 250:	c0 93 69 00 	sts	0x0069, r28
+		}
+		if(bit_is_clear(PINC,0))
+ 254:	98 9b       	sbis	0x13, 0	; 19
+		{
+			polivTriger = 1;
+ 256:	c0 93 69 00 	sts	0x0069, r28
+		}
+		
+		if (bit_is_clear(PINC,1) && !lightIsON)
+ 25a:	99 99       	sbic	0x13, 1	; 19
+ 25c:	06 c0       	rjmp	.+12     	; 0x26a <main+0x38>
+ 25e:	80 91 61 00 	lds	r24, 0x0061
+ 262:	81 11       	cpse	r24, r1
+ 264:	02 c0       	rjmp	.+4      	; 0x26a <main+0x38>
+		{
+			lightTrig = 1;
+ 266:	c0 93 68 00 	sts	0x0068, r28
+		}
+		if(hour == lightstart && !lightIsON)
+ 26a:	80 91 65 00 	lds	r24, 0x0065
+ 26e:	81 30       	cpi	r24, 0x01	; 1
+ 270:	31 f4       	brne	.+12     	; 0x27e <main+0x4c>
+ 272:	80 91 61 00 	lds	r24, 0x0061
+ 276:	81 11       	cpse	r24, r1
+ 278:	02 c0       	rjmp	.+4      	; 0x27e <main+0x4c>
+		{
+			lightTrig = 1;
+ 27a:	c0 93 68 00 	sts	0x0068, r28
+		}
+		
+		if (bit_is_clear(PINC,1) && lightIsON)
+ 27e:	99 99       	sbic	0x13, 1	; 19
+ 280:	dc cf       	rjmp	.-72     	; 0x23a <main+0x8>
+ 282:	80 91 61 00 	lds	r24, 0x0061
+ 286:	88 23       	and	r24, r24
+ 288:	c1 f2       	breq	.-80     	; 0x23a <main+0x8>
+		{
+			lightTrig = 0;
+ 28a:	10 92 68 00 	sts	0x0068, r1
+ 28e:	d5 cf       	rjmp	.-86     	; 0x23a <main+0x8>
+
+00000290 <__divmodhi4>:
+ 290:	97 fb       	bst	r25, 7
+ 292:	07 2e       	mov	r0, r23
+ 294:	16 f4       	brtc	.+4      	; 0x29a <__divmodhi4+0xa>
+ 296:	00 94       	com	r0
+ 298:	06 d0       	rcall	.+12     	; 0x2a6 <__divmodhi4_neg1>
+ 29a:	77 fd       	sbrc	r23, 7
+ 29c:	08 d0       	rcall	.+16     	; 0x2ae <__divmodhi4_neg2>
+ 29e:	0b d0       	rcall	.+22     	; 0x2b6 <__udivmodhi4>
+ 2a0:	07 fc       	sbrc	r0, 7
+ 2a2:	05 d0       	rcall	.+10     	; 0x2ae <__divmodhi4_neg2>
+ 2a4:	3e f4       	brtc	.+14     	; 0x2b4 <__divmodhi4_exit>
+
+000002a6 <__divmodhi4_neg1>:
+ 2a6:	90 95       	com	r25
+ 2a8:	81 95       	neg	r24
+ 2aa:	9f 4f       	sbci	r25, 0xFF	; 255
+ 2ac:	08 95       	ret
+
+000002ae <__divmodhi4_neg2>:
+ 2ae:	70 95       	com	r23
+ 2b0:	61 95       	neg	r22
+ 2b2:	7f 4f       	sbci	r23, 0xFF	; 255
+
+000002b4 <__divmodhi4_exit>:
+ 2b4:	08 95       	ret
+
+000002b6 <__udivmodhi4>:
+ 2b6:	aa 1b       	sub	r26, r26
+ 2b8:	bb 1b       	sub	r27, r27
+ 2ba:	51 e1       	ldi	r21, 0x11	; 17
+ 2bc:	07 c0       	rjmp	.+14     	; 0x2cc <__udivmodhi4_ep>
+
+000002be <__udivmodhi4_loop>:
+ 2be:	aa 1f       	adc	r26, r26
+ 2c0:	bb 1f       	adc	r27, r27
+ 2c2:	a6 17       	cp	r26, r22
+ 2c4:	b7 07       	cpc	r27, r23
+ 2c6:	10 f0       	brcs	.+4      	; 0x2cc <__udivmodhi4_ep>
+ 2c8:	a6 1b       	sub	r26, r22
+ 2ca:	b7 0b       	sbc	r27, r23
+
+000002cc <__udivmodhi4_ep>:
+ 2cc:	88 1f       	adc	r24, r24
+ 2ce:	99 1f       	adc	r25, r25
+ 2d0:	5a 95       	dec	r21
+ 2d2:	a9 f7       	brne	.-22     	; 0x2be <__udivmodhi4_loop>
+ 2d4:	80 95       	com	r24
+ 2d6:	90 95       	com	r25
+ 2d8:	bc 01       	movw	r22, r24
+ 2da:	cd 01       	movw	r24, r26
+ 2dc:	08 95       	ret
+
+000002de <_exit>:
+ 2de:	f8 94       	cli
+
+000002e0 <__stop_program>:
+ 2e0:	ff cf       	rjmp	.-2      	; 0x2e0 <__stop_program>

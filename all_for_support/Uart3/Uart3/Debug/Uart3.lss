@@ -1,0 +1,92 @@
+
+Uart3.elf:     file format elf32-avr
+
+Sections:
+Idx Name          Size      VMA       LMA       File off  Algn
+  0 .text         0000005c  00000000  00000000  00000054  2**1
+                  CONTENTS, ALLOC, LOAD, READONLY, CODE
+  1 .comment      00000030  00000000  00000000  000000b0  2**0
+                  CONTENTS, READONLY
+  2 .debug_aranges 00000048  00000000  00000000  000000e0  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  3 .debug_info   0000022b  00000000  00000000  00000128  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  4 .debug_abbrev 0000018d  00000000  00000000  00000353  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  5 .debug_line   0000019a  00000000  00000000  000004e0  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  6 .debug_frame  000000a0  00000000  00000000  0000067c  2**2
+                  CONTENTS, READONLY, DEBUGGING
+  7 .debug_str    0000018b  00000000  00000000  0000071c  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  8 .debug_loc    000001b6  00000000  00000000  000008a7  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  9 .debug_ranges 00000038  00000000  00000000  00000a5d  2**0
+                  CONTENTS, READONLY, DEBUGGING
+
+Disassembly of section .text:
+
+00000000 <__vectors>:
+   0:	12 c0       	rjmp	.+36     	; 0x26 <__ctors_end>
+   2:	19 c0       	rjmp	.+50     	; 0x36 <__bad_interrupt>
+   4:	18 c0       	rjmp	.+48     	; 0x36 <__bad_interrupt>
+   6:	17 c0       	rjmp	.+46     	; 0x36 <__bad_interrupt>
+   8:	16 c0       	rjmp	.+44     	; 0x36 <__bad_interrupt>
+   a:	15 c0       	rjmp	.+42     	; 0x36 <__bad_interrupt>
+   c:	14 c0       	rjmp	.+40     	; 0x36 <__bad_interrupt>
+   e:	13 c0       	rjmp	.+38     	; 0x36 <__bad_interrupt>
+  10:	12 c0       	rjmp	.+36     	; 0x36 <__bad_interrupt>
+  12:	11 c0       	rjmp	.+34     	; 0x36 <__bad_interrupt>
+  14:	10 c0       	rjmp	.+32     	; 0x36 <__bad_interrupt>
+  16:	0f c0       	rjmp	.+30     	; 0x36 <__bad_interrupt>
+  18:	0e c0       	rjmp	.+28     	; 0x36 <__bad_interrupt>
+  1a:	0d c0       	rjmp	.+26     	; 0x36 <__bad_interrupt>
+  1c:	0c c0       	rjmp	.+24     	; 0x36 <__bad_interrupt>
+  1e:	0b c0       	rjmp	.+22     	; 0x36 <__bad_interrupt>
+  20:	0a c0       	rjmp	.+20     	; 0x36 <__bad_interrupt>
+  22:	09 c0       	rjmp	.+18     	; 0x36 <__bad_interrupt>
+  24:	08 c0       	rjmp	.+16     	; 0x36 <__bad_interrupt>
+
+00000026 <__ctors_end>:
+  26:	11 24       	eor	r1, r1
+  28:	1f be       	out	0x3f, r1	; 63
+  2a:	cf e5       	ldi	r28, 0x5F	; 95
+  2c:	d4 e0       	ldi	r29, 0x04	; 4
+  2e:	de bf       	out	0x3e, r29	; 62
+  30:	cd bf       	out	0x3d, r28	; 61
+  32:	02 d0       	rcall	.+4      	; 0x38 <main>
+  34:	11 c0       	rjmp	.+34     	; 0x58 <_exit>
+
+00000036 <__bad_interrupt>:
+  36:	e4 cf       	rjmp	.-56     	; 0x0 <__vectors>
+
+00000038 <main>:
+}
+
+void send_int_Uart(unsigned int c)//	Отправка числа от 0000 до 9999
+{
+	unsigned char temp;
+	c=c%10000;
+  38:	8f ef       	ldi	r24, 0xFF	; 255
+  3a:	84 bb       	out	0x14, r24	; 20
+  3c:	85 bb       	out	0x15, r24	; 21
+  3e:	2f ef       	ldi	r18, 0xFF	; 255
+  40:	83 e2       	ldi	r24, 0x23	; 35
+  42:	94 ef       	ldi	r25, 0xF4	; 244
+  44:	21 50       	subi	r18, 0x01	; 1
+  46:	80 40       	sbci	r24, 0x00	; 0
+	temp=c/100;
+  48:	90 40       	sbci	r25, 0x00	; 0
+  4a:	e1 f7       	brne	.-8      	; 0x44 <__SREG__+0x5>
+  4c:	00 c0       	rjmp	.+0      	; 0x4e <__SREG__+0xf>
+  4e:	00 00       	nop
+  50:	15 ba       	out	0x15, r1	; 21
+  52:	80 e0       	ldi	r24, 0x00	; 0
+  54:	90 e0       	ldi	r25, 0x00	; 0
+  56:	08 95       	ret
+
+00000058 <_exit>:
+  58:	f8 94       	cli
+
+0000005a <__stop_program>:
+  5a:	ff cf       	rjmp	.-2      	; 0x5a <__stop_program>

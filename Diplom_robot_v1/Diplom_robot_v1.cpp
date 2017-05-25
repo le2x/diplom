@@ -22,7 +22,7 @@
 int int1Led = 1;
 int int0Led = 1;
 
-int WholePWM = 0, BalancePWM = 0, Spiral;
+int WholePWM = 0, LeftBalancePWM = 0, RightBalancePWM = 0, Spiral = 1;
 
 void init_UART()
 {
@@ -66,11 +66,14 @@ void init_UART()
 
 void init_pwm()
 {
-	TCCR0|=(1<<WGM00)|(1<<WGM01)|(1<<COM01)|(1<<CS00);
+	TCCR0|=(1<<WGM00)|(1<<WGM01)|(1<<COM01)|(1<<CS01) |(1<<CS00);
 	OCR0 = 0x00; //начальное состояние 0
 	
-	TCCR2|=(1<<WGM20)|(1<<WGM21)|(1<<COM21)|(1<<CS20);
+	TCCR2|=(1<<WGM20)|(1<<WGM21)|(1<<COM21)|(1<<CS21) |(1<<CS20);
 	OCR2 = 0x00; //начальное состояние 0
+	
+	DDRD |= (1<<PD7);
+	DDRB |= (1<<PB3);
 }
 /*
 void int0_init( void )
@@ -123,16 +126,23 @@ unsigned char getch_Uart()//	Получение байта
 
 int main()
 {
-	init_pwm();
-	DDRA = 0xFF;
-	DDRD |= (1<<PD7);
-	DDRB |= (1<<PB3);
+	init_UART();					//	инициализация UART
+	_delay_ms(1000);				//	задержка 1c
+	send_Uart_str("alex-exe.ru");	//	отправка строки
+	send_Uart(13);					//	перенос строки
+	send_int_Uart(2013);			//	отправка числа
+	send_Uart(13);					//	перенос строки
 	
+	init_pwm();
+	
+	DDRA = 0xFF;
 	PORTA |= (1<<PA4) | (1<<PA6);
 	
-	
-	OCR2 = 127;
-	OCR0 = 253;
+	WholePWM = 180;
+	OCR2 = (WholePWM+LeftBalancePWM)*Spiral;
+	OCR0 = WholePWM+RightBalancePWM;
+	send_int_Uart(OCR2);
+	send_int_Uart(OCR0);
 	/*DDRC = 0xff;				//	инициализация порта C, PC0 - выход
 	DDRB = 0xff;
 	DDRD &= (1<<PD2);

@@ -1,0 +1,1409 @@
+
+GccApplication2.elf:     file format elf32-avr
+
+Sections:
+Idx Name          Size      VMA       LMA       File off  Algn
+  0 .text         000006f4  00000000  00000000  00000094  2**1
+                  CONTENTS, ALLOC, LOAD, READONLY, CODE
+  1 .data         00000004  00800060  000006f4  00000788  2**0
+                  CONTENTS, ALLOC, LOAD, DATA
+  2 .bss          000001fd  00800064  00800064  0000078c  2**0
+                  ALLOC
+  3 .comment      00000030  00000000  00000000  0000078c  2**0
+                  CONTENTS, READONLY
+  4 .debug_aranges 000000d8  00000000  00000000  000007bc  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  5 .debug_info   00001141  00000000  00000000  00000894  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  6 .debug_abbrev 000004d0  00000000  00000000  000019d5  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  7 .debug_line   000005a1  00000000  00000000  00001ea5  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  8 .debug_frame  00000308  00000000  00000000  00002448  2**2
+                  CONTENTS, READONLY, DEBUGGING
+  9 .debug_str    000003bb  00000000  00000000  00002750  2**0
+                  CONTENTS, READONLY, DEBUGGING
+ 10 .debug_loc    0000159b  00000000  00000000  00002b0b  2**0
+                  CONTENTS, READONLY, DEBUGGING
+ 11 .debug_ranges 000000b8  00000000  00000000  000040a6  2**0
+                  CONTENTS, READONLY, DEBUGGING
+
+Disassembly of section .text:
+
+00000000 <__vectors>:
+   0:	12 c0       	rjmp	.+36     	; 0x26 <__ctors_end>
+   2:	2c c0       	rjmp	.+88     	; 0x5c <__bad_interrupt>
+   4:	2b c0       	rjmp	.+86     	; 0x5c <__bad_interrupt>
+   6:	2a c0       	rjmp	.+84     	; 0x5c <__bad_interrupt>
+   8:	29 c0       	rjmp	.+82     	; 0x5c <__bad_interrupt>
+   a:	28 c0       	rjmp	.+80     	; 0x5c <__bad_interrupt>
+   c:	27 c0       	rjmp	.+78     	; 0x5c <__bad_interrupt>
+   e:	26 c0       	rjmp	.+76     	; 0x5c <__bad_interrupt>
+  10:	25 c0       	rjmp	.+74     	; 0x5c <__bad_interrupt>
+  12:	24 c0       	rjmp	.+72     	; 0x5c <__bad_interrupt>
+  14:	23 c0       	rjmp	.+70     	; 0x5c <__bad_interrupt>
+  16:	22 c0       	rjmp	.+68     	; 0x5c <__bad_interrupt>
+  18:	21 c0       	rjmp	.+66     	; 0x5c <__bad_interrupt>
+  1a:	20 c0       	rjmp	.+64     	; 0x5c <__bad_interrupt>
+  1c:	1f c0       	rjmp	.+62     	; 0x5c <__bad_interrupt>
+  1e:	1e c0       	rjmp	.+60     	; 0x5c <__bad_interrupt>
+  20:	1d c0       	rjmp	.+58     	; 0x5c <__bad_interrupt>
+  22:	1c c0       	rjmp	.+56     	; 0x5c <__bad_interrupt>
+  24:	1b c0       	rjmp	.+54     	; 0x5c <__bad_interrupt>
+
+00000026 <__ctors_end>:
+  26:	11 24       	eor	r1, r1
+  28:	1f be       	out	0x3f, r1	; 63
+  2a:	cf e5       	ldi	r28, 0x5F	; 95
+  2c:	d4 e0       	ldi	r29, 0x04	; 4
+  2e:	de bf       	out	0x3e, r29	; 62
+  30:	cd bf       	out	0x3d, r28	; 61
+
+00000032 <__do_clear_bss>:
+  32:	22 e0       	ldi	r18, 0x02	; 2
+  34:	a4 e6       	ldi	r26, 0x64	; 100
+  36:	b0 e0       	ldi	r27, 0x00	; 0
+  38:	01 c0       	rjmp	.+2      	; 0x3c <.do_clear_bss_start>
+
+0000003a <.do_clear_bss_loop>:
+  3a:	1d 92       	st	X+, r1
+
+0000003c <.do_clear_bss_start>:
+  3c:	a1 36       	cpi	r26, 0x61	; 97
+  3e:	b2 07       	cpc	r27, r18
+  40:	e1 f7       	brne	.-8      	; 0x3a <.do_clear_bss_loop>
+
+00000042 <__do_copy_data>:
+  42:	10 e0       	ldi	r17, 0x00	; 0
+  44:	a0 e6       	ldi	r26, 0x60	; 96
+  46:	b0 e0       	ldi	r27, 0x00	; 0
+  48:	e4 ef       	ldi	r30, 0xF4	; 244
+  4a:	f6 e0       	ldi	r31, 0x06	; 6
+  4c:	02 c0       	rjmp	.+4      	; 0x52 <__do_copy_data+0x10>
+  4e:	05 90       	lpm	r0, Z+
+  50:	0d 92       	st	X+, r0
+  52:	a4 36       	cpi	r26, 0x64	; 100
+  54:	b1 07       	cpc	r27, r17
+  56:	d9 f7       	brne	.-10     	; 0x4e <__do_copy_data+0xc>
+  58:	4e d0       	rcall	.+156    	; 0xf6 <main>
+  5a:	4a c3       	rjmp	.+1684   	; 0x6f0 <_exit>
+
+0000005c <__bad_interrupt>:
+  5c:	d1 cf       	rjmp	.-94     	; 0x0 <__vectors>
+
+0000005e <preset>:
+
+
+#include "n5110.h"
+
+void preset(){
+	Lcd_init();
+  5e:	f5 d0       	rcall	.+490    	; 0x24a <Lcd_init>
+	Lcd_clear();
+  60:	78 d0       	rcall	.+240    	; 0x152 <Lcd_clear>
+	Lcd_update();
+  62:	8f d0       	rcall	.+286    	; 0x182 <Lcd_update>
+	DDRC |=(1<<PC0);
+  64:	a0 9a       	sbi	0x14, 0	; 20
+  66:	08 95       	ret
+
+00000068 <gradusnic>:
+	
+	
+}
+
+void gradusnic(){
+  68:	0f 93       	push	r16
+  6a:	cf 93       	push	r28
+	Lcd_circle(42,5,3,PIXEL_ON);
+  6c:	21 e0       	ldi	r18, 0x01	; 1
+  6e:	43 e0       	ldi	r20, 0x03	; 3
+  70:	65 e0       	ldi	r22, 0x05	; 5
+  72:	8a e2       	ldi	r24, 0x2A	; 42
+  74:	e4 d1       	rcall	.+968    	; 0x43e <Lcd_circle>
+  76:	c0 e0       	ldi	r28, 0x00	; 0
+	
+	for(int i =0; i<7; i++)
+	{
+	Lcd_circle(42,30,i,PIXEL_ON);	
+  78:	21 e0       	ldi	r18, 0x01	; 1
+  7a:	4c 2f       	mov	r20, r28
+  7c:	6e e1       	ldi	r22, 0x1E	; 30
+  7e:	8a e2       	ldi	r24, 0x2A	; 42
+  80:	de d1       	rcall	.+956    	; 0x43e <Lcd_circle>
+  82:	cf 5f       	subi	r28, 0xFF	; 255
+}
+
+void gradusnic(){
+	Lcd_circle(42,5,3,PIXEL_ON);
+	
+	for(int i =0; i<7; i++)
+  84:	c7 30       	cpi	r28, 0x07	; 7
+  86:	c1 f7       	brne	.-16     	; 0x78 <gradusnic+0x10>
+	{
+	Lcd_circle(42,30,i,PIXEL_ON);	
+	}
+	
+	Lcd_line(39,5,39,26,PIXEL_ON);
+  88:	01 e0       	ldi	r16, 0x01	; 1
+  8a:	2a e1       	ldi	r18, 0x1A	; 26
+  8c:	47 e2       	ldi	r20, 0x27	; 39
+  8e:	65 e0       	ldi	r22, 0x05	; 5
+  90:	87 e2       	ldi	r24, 0x27	; 39
+  92:	58 d1       	rcall	.+688    	; 0x344 <Lcd_line>
+	Lcd_line(45,5,45,26,PIXEL_ON);
+  94:	2a e1       	ldi	r18, 0x1A	; 26
+  96:	4d e2       	ldi	r20, 0x2D	; 45
+  98:	65 e0       	ldi	r22, 0x05	; 5
+  9a:	8d e2       	ldi	r24, 0x2D	; 45
+  9c:	53 d1       	rcall	.+678    	; 0x344 <Lcd_line>
+	
+	
+}
+  9e:	cf 91       	pop	r28
+  a0:	0f 91       	pop	r16
+  a2:	08 95       	ret
+
+000000a4 <shkala>:
+
+void shkala(int a)
+{
+  a4:	ef 92       	push	r14
+  a6:	ff 92       	push	r15
+  a8:	0f 93       	push	r16
+  aa:	cf 93       	push	r28
+  ac:	df 93       	push	r29
+  ae:	7c 01       	movw	r14, r24
+  b0:	c8 e1       	ldi	r28, 0x18	; 24
+	for(int i = 24; i>3; i--)
+	{
+		Lcd_line(40,i,44,i,PIXEL_OFF);
+  b2:	00 e0       	ldi	r16, 0x00	; 0
+  b4:	2c 2f       	mov	r18, r28
+  b6:	4c e2       	ldi	r20, 0x2C	; 44
+  b8:	6c 2f       	mov	r22, r28
+  ba:	88 e2       	ldi	r24, 0x28	; 40
+  bc:	43 d1       	rcall	.+646    	; 0x344 <Lcd_line>
+  be:	c1 50       	subi	r28, 0x01	; 1
+	
+}
+
+void shkala(int a)
+{
+	for(int i = 24; i>3; i--)
+  c0:	c3 30       	cpi	r28, 0x03	; 3
+  c2:	b9 f7       	brne	.-18     	; 0xb2 <shkala+0xe>
+	{
+		Lcd_line(40,i,44,i,PIXEL_OFF);
+	}
+	
+	for(int i = 24; i>a+3; i--)
+  c4:	83 e0       	ldi	r24, 0x03	; 3
+  c6:	e8 0e       	add	r14, r24
+  c8:	f1 1c       	adc	r15, r1
+  ca:	88 e1       	ldi	r24, 0x18	; 24
+  cc:	e8 16       	cp	r14, r24
+  ce:	f1 04       	cpc	r15, r1
+  d0:	64 f4       	brge	.+24     	; 0xea <shkala+0x46>
+  d2:	c8 e1       	ldi	r28, 0x18	; 24
+  d4:	d0 e0       	ldi	r29, 0x00	; 0
+	{
+		Lcd_line(40,i,44,i,PIXEL_ON);
+  d6:	01 e0       	ldi	r16, 0x01	; 1
+  d8:	2c 2f       	mov	r18, r28
+  da:	4c e2       	ldi	r20, 0x2C	; 44
+  dc:	6c 2f       	mov	r22, r28
+  de:	88 e2       	ldi	r24, 0x28	; 40
+  e0:	31 d1       	rcall	.+610    	; 0x344 <Lcd_line>
+	for(int i = 24; i>3; i--)
+	{
+		Lcd_line(40,i,44,i,PIXEL_OFF);
+	}
+	
+	for(int i = 24; i>a+3; i--)
+  e2:	21 97       	sbiw	r28, 0x01	; 1
+  e4:	ec 16       	cp	r14, r28
+  e6:	fd 06       	cpc	r15, r29
+  e8:	b4 f3       	brlt	.-20     	; 0xd6 <shkala+0x32>
+	{
+		Lcd_line(40,i,44,i,PIXEL_ON);
+	}
+	
+	
+}
+  ea:	df 91       	pop	r29
+  ec:	cf 91       	pop	r28
+  ee:	0f 91       	pop	r16
+  f0:	ff 90       	pop	r15
+  f2:	ef 90       	pop	r14
+  f4:	08 95       	ret
+
+000000f6 <main>:
+
+
+int main(void)
+{
+	preset();
+  f6:	b3 df       	rcall	.-154    	; 0x5e <preset>
+	
+	int times = 1;
+  f8:	c1 e0       	ldi	r28, 0x01	; 1
+  fa:	d0 e0       	ldi	r29, 0x00	; 0
+    {
+       	gradusnic();
+		PORTC |= (1<<PC0);
+		
+		srand(times);  
+		shkala(rand()%23);
+  fc:	07 e1       	ldi	r16, 0x17	; 23
+  fe:	10 e0       	ldi	r17, 0x00	; 0
+	preset();
+	
+	int times = 1;
+    while(1)
+    {
+       	gradusnic();
+ 100:	b3 df       	rcall	.-154    	; 0x68 <gradusnic>
+		PORTC |= (1<<PC0);
+ 102:	a8 9a       	sbi	0x15, 0	; 21
+		
+		srand(times);  
+ 104:	ce 01       	movw	r24, r28
+ 106:	8f d2       	rcall	.+1310   	; 0x626 <srand>
+		shkala(rand()%23);
+ 108:	8a d2       	rcall	.+1300   	; 0x61e <rand>
+ 10a:	b8 01       	movw	r22, r16
+ 10c:	17 d2       	rcall	.+1070   	; 0x53c <__divmodhi4>
+ 10e:	ca df       	rcall	.-108    	; 0xa4 <shkala>
+		
+		Lcd_update();
+ 110:	38 d0       	rcall	.+112    	; 0x182 <Lcd_update>
+	#else
+		//round up by default
+		__ticks_dc = (uint32_t)(ceil(fabs(__tmp)));
+	#endif
+
+	__builtin_avr_delay_cycles(__ticks_dc);
+ 112:	2f ef       	ldi	r18, 0xFF	; 255
+ 114:	84 e3       	ldi	r24, 0x34	; 52
+ 116:	9c e0       	ldi	r25, 0x0C	; 12
+ 118:	21 50       	subi	r18, 0x01	; 1
+ 11a:	80 40       	sbci	r24, 0x00	; 0
+ 11c:	90 40       	sbci	r25, 0x00	; 0
+ 11e:	e1 f7       	brne	.-8      	; 0x118 <main+0x22>
+ 120:	00 c0       	rjmp	.+0      	; 0x122 <main+0x2c>
+ 122:	00 00       	nop
+		_delay_ms(500);
+		PORTC = 0x00;
+ 124:	15 ba       	out	0x15, r1	; 21
+ 126:	2f ef       	ldi	r18, 0xFF	; 255
+ 128:	89 e6       	ldi	r24, 0x69	; 105
+ 12a:	98 e1       	ldi	r25, 0x18	; 24
+ 12c:	21 50       	subi	r18, 0x01	; 1
+ 12e:	80 40       	sbci	r24, 0x00	; 0
+ 130:	90 40       	sbci	r25, 0x00	; 0
+ 132:	e1 f7       	brne	.-8      	; 0x12c <main+0x36>
+ 134:	00 c0       	rjmp	.+0      	; 0x136 <main+0x40>
+ 136:	00 00       	nop
+		_delay_ms(1000);
+		times++;
+ 138:	21 96       	adiw	r28, 0x01	; 1
+ 13a:	e2 cf       	rjmp	.-60     	; 0x100 <main+0xa>
+
+0000013c <LcdSend>:
+            c >>= 4;
+            // Вторую часть
+            b2 =  (c & 0x01) * 3;
+            b2 |= (c & 0x02) * 6;
+            b2 |= (c & 0x04) * 12;
+            b2 |= (c & 0x08) * 24;
+ 13c:	c2 98       	cbi	0x18, 2	; 24
+ 13e:	61 30       	cpi	r22, 0x01	; 1
+ 140:	11 f4       	brne	.+4      	; 0x146 <LcdSend+0xa>
+ 142:	c1 9a       	sbi	0x18, 1	; 24
+ 144:	01 c0       	rjmp	.+2      	; 0x148 <LcdSend+0xc>
+
+            // Копируем две части в кэш
+            LcdCache[tmpIdx++] = b1;
+ 146:	c1 98       	cbi	0x18, 1	; 24
+            LcdCache[tmpIdx++] = b1;
+ 148:	8f b9       	out	0x0f, r24	; 15
+ 14a:	77 9b       	sbis	0x0e, 7	; 14
+ 14c:	fe cf       	rjmp	.-4      	; 0x14a <LcdSend+0xe>
+            LcdCache[tmpIdx + 82] = b2;
+ 14e:	c2 9a       	sbi	0x18, 2	; 24
+ 150:	08 95       	ret
+
+00000152 <Lcd_clear>:
+            LcdCache[tmpIdx + 83] = b2;
+ 152:	88 ef       	ldi	r24, 0xF8	; 248
+ 154:	91 e0       	ldi	r25, 0x01	; 1
+ 156:	e9 e6       	ldi	r30, 0x69	; 105
+            LoWaterMark = tmpIdx;
+        }
+
+        if ( tmpIdx < 0 ) return OUT_OF_BORDER;
+
+        for ( i = 0; i < 5; i++ )
+ 158:	f0 e0       	ldi	r31, 0x00	; 0
+ 15a:	df 01       	movw	r26, r30
+ 15c:	9c 01       	movw	r18, r24
+ 15e:	1d 92       	st	X+, r1
+            LcdCache[tmpIdx + 82] = b2;
+            LcdCache[tmpIdx + 83] = b2;
+        }
+
+        // Обновляем x координату курсора
+        LcdCacheIdx = (LcdCacheIdx + 11) % LCD_CACHE_SIZE;
+ 160:	21 50       	subi	r18, 0x01	; 1
+ 162:	30 40       	sbci	r19, 0x00	; 0
+ 164:	e1 f7       	brne	.-8      	; 0x15e <Lcd_clear+0xc>
+ 166:	10 92 68 00 	sts	0x0068, r1
+ 16a:	10 92 67 00 	sts	0x0067, r1
+ 16e:	87 ef       	ldi	r24, 0xF7	; 247
+ 170:	91 e0       	ldi	r25, 0x01	; 1
+    }
+
+    if ( LcdCacheIdx > HiWaterMark )
+ 172:	90 93 66 00 	sts	0x0066, r25
+ 176:	80 93 65 00 	sts	0x0065, r24
+ 17a:	81 e0       	ldi	r24, 0x01	; 1
+ 17c:	80 93 64 00 	sts	0x0064, r24
+ 180:	08 95       	ret
+
+00000182 <Lcd_update>:
+ 182:	0f 93       	push	r16
+ 184:	1f 93       	push	r17
+ 186:	cf 93       	push	r28
+    {
+        // Обновляем верхнюю границу
+        HiWaterMark = LcdCacheIdx;
+ 188:	df 93       	push	r29
+ 18a:	80 91 67 00 	lds	r24, 0x0067
+ 18e:	90 91 68 00 	lds	r25, 0x0068
+    }
+
+    // Горизонтальный разрыв между символами
+    LcdCache[LcdCacheIdx] = 0x00;
+ 192:	99 23       	and	r25, r25
+ 194:	2c f4       	brge	.+10     	; 0x1a0 <Lcd_update+0x1e>
+ 196:	10 92 68 00 	sts	0x0068, r1
+    // Если достигли позицию указателя LCD_CACHE_SIZE - 1, переходим в начало
+    if(LcdCacheIdx == (LCD_CACHE_SIZE - 1) )
+ 19a:	10 92 67 00 	sts	0x0067, r1
+ 19e:	09 c0       	rjmp	.+18     	; 0x1b2 <Lcd_update+0x30>
+    {
+        LcdCacheIdx = 0;
+ 1a0:	88 3f       	cpi	r24, 0xF8	; 248
+ 1a2:	91 40       	sbci	r25, 0x01	; 1
+ 1a4:	34 f0       	brlt	.+12     	; 0x1b2 <Lcd_update+0x30>
+ 1a6:	87 ef       	ldi	r24, 0xF7	; 247
+        return OK_WITH_WRAP;
+ 1a8:	91 e0       	ldi	r25, 0x01	; 1
+ 1aa:	90 93 68 00 	sts	0x0068, r25
+    }
+    // Иначе просто инкрементируем указатель
+    LcdCacheIdx++;
+ 1ae:	80 93 67 00 	sts	0x0067, r24
+ 1b2:	80 91 65 00 	lds	r24, 0x0065
+    return OK;
+ 1b6:	90 91 66 00 	lds	r25, 0x0066
+        if ( tmpIdx < LoWaterMark )
+        {
+            LoWaterMark = tmpIdx;
+        }
+
+        if ( tmpIdx < 0 ) return OUT_OF_BORDER;
+ 1ba:	99 23       	and	r25, r25
+        return OK_WITH_WRAP;
+    }
+    // Иначе просто инкрементируем указатель
+    LcdCacheIdx++;
+    return OK;
+}
+ 1bc:	2c f4       	brge	.+10     	; 0x1c8 <Lcd_update+0x46>
+ 1be:	10 92 66 00 	sts	0x0066, r1
+ 1c2:	10 92 65 00 	sts	0x0065, r1
+        LoWaterMark = 0;
+    else if ( LoWaterMark >= LCD_CACHE_SIZE )
+        LoWaterMark = LCD_CACHE_SIZE - 1;
+
+    if ( HiWaterMark < 0 )
+        HiWaterMark = 0;
+ 1c6:	09 c0       	rjmp	.+18     	; 0x1da <Lcd_update+0x58>
+    else if ( HiWaterMark >= LCD_CACHE_SIZE )
+ 1c8:	88 3f       	cpi	r24, 0xF8	; 248
+ 1ca:	91 40       	sbci	r25, 0x01	; 1
+ 1cc:	34 f0       	brlt	.+12     	; 0x1da <Lcd_update+0x58>
+        HiWaterMark = LCD_CACHE_SIZE - 1;
+ 1ce:	87 ef       	ldi	r24, 0xF7	; 247
+ 1d0:	91 e0       	ldi	r25, 0x01	; 1
+ 1d2:	90 93 66 00 	sts	0x0066, r25
+ 1d6:	80 93 65 00 	sts	0x0065, r24
+        LcdSend( 0x20, LCD_CMD );    // Включаем стандартный набор команд и горизонтальную адресацию
+
+    #else  // Алгоритм для оригинального дисплея
+
+        // Устанавливаем начальный адрес в соответствии к LoWaterMark
+        LcdSend( 0x80 | ( LoWaterMark % LCD_X_RES ), LCD_CMD );
+ 1da:	c0 91 67 00 	lds	r28, 0x0067
+ 1de:	d0 91 68 00 	lds	r29, 0x0068
+ 1e2:	ce 01       	movw	r24, r28
+ 1e4:	64 e5       	ldi	r22, 0x54	; 84
+ 1e6:	70 e0       	ldi	r23, 0x00	; 0
+ 1e8:	a9 d1       	rcall	.+850    	; 0x53c <__divmodhi4>
+ 1ea:	16 2f       	mov	r17, r22
+ 1ec:	60 e0       	ldi	r22, 0x00	; 0
+ 1ee:	80 68       	ori	r24, 0x80	; 128
+ 1f0:	a5 df       	rcall	.-182    	; 0x13c <LcdSend>
+        LcdSend( 0x40 | ( LoWaterMark / LCD_X_RES ), LCD_CMD );
+ 1f2:	60 e0       	ldi	r22, 0x00	; 0
+ 1f4:	81 2f       	mov	r24, r17
+ 1f6:	80 64       	ori	r24, 0x40	; 64
+ 1f8:	a1 df       	rcall	.-190    	; 0x13c <LcdSend>
+
+        // Обновляем необходимую часть буфера дисплея
+        for ( i = LoWaterMark; i <= HiWaterMark; i++ )
+ 1fa:	80 91 65 00 	lds	r24, 0x0065
+ 1fe:	90 91 66 00 	lds	r25, 0x0066
+ 202:	8c 17       	cp	r24, r28
+ 204:	9d 07       	cpc	r25, r29
+ 206:	84 f0       	brlt	.+32     	; 0x228 <Lcd_update+0xa6>
+ 208:	8e 01       	movw	r16, r28
+ 20a:	07 59       	subi	r16, 0x97	; 151
+ 20c:	1f 4f       	sbci	r17, 0xFF	; 255
+        {
+            // Для оригинального дисплея не нужно следить за адресом в буфере,
+            // можно просто последовательно выводить данные
+            LcdSend( LcdCache[i], LCD_DATA );
+ 20e:	61 e0       	ldi	r22, 0x01	; 1
+ 210:	f8 01       	movw	r30, r16
+ 212:	81 91       	ld	r24, Z+
+ 214:	8f 01       	movw	r16, r30
+ 216:	92 df       	rcall	.-220    	; 0x13c <LcdSend>
+        // Устанавливаем начальный адрес в соответствии к LoWaterMark
+        LcdSend( 0x80 | ( LoWaterMark % LCD_X_RES ), LCD_CMD );
+        LcdSend( 0x40 | ( LoWaterMark / LCD_X_RES ), LCD_CMD );
+
+        // Обновляем необходимую часть буфера дисплея
+        for ( i = LoWaterMark; i <= HiWaterMark; i++ )
+ 218:	21 96       	adiw	r28, 0x01	; 1
+ 21a:	80 91 65 00 	lds	r24, 0x0065
+ 21e:	90 91 66 00 	lds	r25, 0x0066
+ 222:	8c 17       	cp	r24, r28
+ 224:	9d 07       	cpc	r25, r29
+ 226:	9c f7       	brge	.-26     	; 0x20e <Lcd_update+0x8c>
+        }
+
+    #endif
+
+    // Сброс указателей границ в пустоту
+    LoWaterMark = LCD_CACHE_SIZE - 1;
+ 228:	87 ef       	ldi	r24, 0xF7	; 247
+ 22a:	91 e0       	ldi	r25, 0x01	; 1
+ 22c:	90 93 68 00 	sts	0x0068, r25
+ 230:	80 93 67 00 	sts	0x0067, r24
+    HiWaterMark = 0;
+ 234:	10 92 66 00 	sts	0x0066, r1
+ 238:	10 92 65 00 	sts	0x0065, r1
+
+    // Сброс флага изменений кэша
+    UpdateLcd = FALSE;
+ 23c:	10 92 64 00 	sts	0x0064, r1
+}
+ 240:	df 91       	pop	r29
+ 242:	cf 91       	pop	r28
+ 244:	1f 91       	pop	r17
+ 246:	0f 91       	pop	r16
+ 248:	08 95       	ret
+
+0000024a <Lcd_init>:
+ * Возвращаемое значение :  Нет
+ */
+void Lcd_init ( void )
+{
+    // Pull-up на вывод подключенный к reset дисплея
+    LCD_PORT |= _BV ( LCD_RST_PIN );
+ 24a:	c4 9a       	sbi	0x18, 4	; 24
+
+    // Устанавливаем нужные биты порта на выход
+    LCD_DDR |= _BV( LCD_RST_PIN ) | _BV( LCD_DC_PIN ) | _BV( LCD_CE_PIN ) | _BV( SPI_MOSI_PIN ) | _BV( SPI_CLK_PIN );
+ 24c:	87 b3       	in	r24, 0x17	; 23
+ 24e:	8e 63       	ori	r24, 0x3E	; 62
+ 250:	87 bb       	out	0x17, r24	; 23
+
+    // Некалиброванная задержка
+    Delay();
+
+    // Дергаем reset
+    LCD_PORT &= ~( _BV( LCD_RST_PIN ) );
+ 252:	c4 98       	cbi	0x18, 4	; 24
+    Delay();
+    LCD_PORT |= _BV ( LCD_RST_PIN );
+ 254:	c4 9a       	sbi	0x18, 4	; 24
+
+    // Активируем SPI:
+    // без прерываний, старший бит первый, режим мастера, CPOL->0, CPHA->0, Clk/4
+    SPCR = 0x50;
+ 256:	80 e5       	ldi	r24, 0x50	; 80
+ 258:	8d b9       	out	0x0d, r24	; 13
+
+    // Отключаем LCD контроллер - высокий уровень на SCE
+    LCD_PORT |= _BV( LCD_CE_PIN );
+ 25a:	c2 9a       	sbi	0x18, 2	; 24
+
+    // Отправляем команды дисплею
+    LcdSend( 0x21, LCD_CMD ); // Включаем расширенный набор команд (LCD Extended Commands)
+ 25c:	60 e0       	ldi	r22, 0x00	; 0
+ 25e:	81 e2       	ldi	r24, 0x21	; 33
+ 260:	6d df       	rcall	.-294    	; 0x13c <LcdSend>
+    LcdSend( 0xC8, LCD_CMD ); // Установка контрастности (LCD Vop)
+ 262:	60 e0       	ldi	r22, 0x00	; 0
+ 264:	88 ec       	ldi	r24, 0xC8	; 200
+ 266:	6a df       	rcall	.-300    	; 0x13c <LcdSend>
+    LcdSend( 0x06, LCD_CMD ); // Установка температурного коэффициента (Temp coefficent)
+ 268:	60 e0       	ldi	r22, 0x00	; 0
+ 26a:	86 e0       	ldi	r24, 0x06	; 6
+ 26c:	67 df       	rcall	.-306    	; 0x13c <LcdSend>
+    LcdSend( 0x13, LCD_CMD ); // Настройка питания (LCD bias mode 1:48)
+ 26e:	60 e0       	ldi	r22, 0x00	; 0
+ 270:	83 e1       	ldi	r24, 0x13	; 19
+ 272:	64 df       	rcall	.-312    	; 0x13c <LcdSend>
+    LcdSend( 0x20, LCD_CMD ); // Включаем стандартный набор команд и горизонтальную адресацию (LCD Standard Commands,Horizontal addressing mode)
+ 274:	60 e0       	ldi	r22, 0x00	; 0
+ 276:	80 e2       	ldi	r24, 0x20	; 32
+ 278:	61 df       	rcall	.-318    	; 0x13c <LcdSend>
+    LcdSend( 0x0C, LCD_CMD ); // Нормальный режим (LCD in normal mode)
+ 27a:	60 e0       	ldi	r22, 0x00	; 0
+ 27c:	8c e0       	ldi	r24, 0x0C	; 12
+ 27e:	5e df       	rcall	.-324    	; 0x13c <LcdSend>
+
+    // Первичная очистка дисплея
+    Lcd_clear();
+ 280:	68 df       	rcall	.-304    	; 0x152 <Lcd_clear>
+    Lcd_update();
+ 282:	7f df       	rcall	.-258    	; 0x182 <Lcd_update>
+ 284:	08 95       	ret
+
+00000286 <Lcd_pixel>:
+    int  index;
+    byte  offset;
+    byte  data;
+
+    // Защита от выхода за пределы
+    if ( x >= LCD_X_RES || y >= LCD_Y_RES) return OUT_OF_BORDER;
+ 286:	84 35       	cpi	r24, 0x54	; 84
+ 288:	08 f0       	brcs	.+2      	; 0x28c <Lcd_pixel+0x6>
+ 28a:	56 c0       	rjmp	.+172    	; 0x338 <Lcd_pixel+0xb2>
+ 28c:	60 33       	cpi	r22, 0x30	; 48
+ 28e:	08 f0       	brcs	.+2      	; 0x292 <Lcd_pixel+0xc>
+ 290:	55 c0       	rjmp	.+170    	; 0x33c <Lcd_pixel+0xb6>
+
+    // Пересчет индекса и смещения
+    index = ( ( y / 8 ) * 84 ) + x;
+ 292:	26 2f       	mov	r18, r22
+ 294:	26 95       	lsr	r18
+ 296:	26 95       	lsr	r18
+ 298:	26 95       	lsr	r18
+ 29a:	90 e0       	ldi	r25, 0x00	; 0
+ 29c:	34 e5       	ldi	r19, 0x54	; 84
+ 29e:	23 9f       	mul	r18, r19
+ 2a0:	80 0d       	add	r24, r0
+ 2a2:	91 1d       	adc	r25, r1
+ 2a4:	11 24       	eor	r1, r1
+    offset  = y - ( ( y / 8 ) * 8 );
+ 2a6:	22 0f       	add	r18, r18
+ 2a8:	22 0f       	add	r18, r18
+ 2aa:	22 0f       	add	r18, r18
+ 2ac:	62 1b       	sub	r22, r18
+
+    data = LcdCache[ index ];
+ 2ae:	fc 01       	movw	r30, r24
+ 2b0:	e7 59       	subi	r30, 0x97	; 151
+ 2b2:	ff 4f       	sbci	r31, 0xFF	; 255
+ 2b4:	50 81       	ld	r21, Z
+
+    // Обработка битов
+
+    // Режим PIXEL_OFF
+    if ( mode == PIXEL_OFF )
+ 2b6:	41 11       	cpse	r20, r1
+ 2b8:	0c c0       	rjmp	.+24     	; 0x2d2 <Lcd_pixel+0x4c>
+    {
+        data &= ( ~( 0x01 << offset ) );
+ 2ba:	21 e0       	ldi	r18, 0x01	; 1
+ 2bc:	30 e0       	ldi	r19, 0x00	; 0
+ 2be:	f9 01       	movw	r30, r18
+ 2c0:	02 c0       	rjmp	.+4      	; 0x2c6 <Lcd_pixel+0x40>
+ 2c2:	ee 0f       	add	r30, r30
+ 2c4:	ff 1f       	adc	r31, r31
+ 2c6:	6a 95       	dec	r22
+ 2c8:	e2 f7       	brpl	.-8      	; 0x2c2 <Lcd_pixel+0x3c>
+ 2ca:	bf 01       	movw	r22, r30
+ 2cc:	60 95       	com	r22
+ 2ce:	56 23       	and	r21, r22
+ 2d0:	17 c0       	rjmp	.+46     	; 0x300 <Lcd_pixel+0x7a>
+    }
+    // Режим PIXEL_ON
+    else if ( mode == PIXEL_ON )
+ 2d2:	41 30       	cpi	r20, 0x01	; 1
+ 2d4:	51 f4       	brne	.+20     	; 0x2ea <Lcd_pixel+0x64>
+    {
+        data |= ( 0x01 << offset );
+ 2d6:	21 e0       	ldi	r18, 0x01	; 1
+ 2d8:	30 e0       	ldi	r19, 0x00	; 0
+ 2da:	f9 01       	movw	r30, r18
+ 2dc:	02 c0       	rjmp	.+4      	; 0x2e2 <Lcd_pixel+0x5c>
+ 2de:	ee 0f       	add	r30, r30
+ 2e0:	ff 1f       	adc	r31, r31
+ 2e2:	6a 95       	dec	r22
+ 2e4:	e2 f7       	brpl	.-8      	; 0x2de <Lcd_pixel+0x58>
+ 2e6:	5e 2b       	or	r21, r30
+ 2e8:	0b c0       	rjmp	.+22     	; 0x300 <Lcd_pixel+0x7a>
+    }
+    // Режим PIXEL_XOR
+    else if ( mode  == PIXEL_XOR )
+ 2ea:	42 30       	cpi	r20, 0x02	; 2
+ 2ec:	49 f4       	brne	.+18     	; 0x300 <Lcd_pixel+0x7a>
+    {
+        data ^= ( 0x01 << offset );
+ 2ee:	21 e0       	ldi	r18, 0x01	; 1
+ 2f0:	30 e0       	ldi	r19, 0x00	; 0
+ 2f2:	f9 01       	movw	r30, r18
+ 2f4:	02 c0       	rjmp	.+4      	; 0x2fa <Lcd_pixel+0x74>
+ 2f6:	ee 0f       	add	r30, r30
+ 2f8:	ff 1f       	adc	r31, r31
+ 2fa:	6a 95       	dec	r22
+ 2fc:	e2 f7       	brpl	.-8      	; 0x2f6 <Lcd_pixel+0x70>
+ 2fe:	5e 27       	eor	r21, r30
+    }
+
+    // Окончательный результат копируем в кэш
+    LcdCache[ index ] = data;
+ 300:	fc 01       	movw	r30, r24
+ 302:	e7 59       	subi	r30, 0x97	; 151
+ 304:	ff 4f       	sbci	r31, 0xFF	; 255
+ 306:	50 83       	st	Z, r21
+
+    if ( index < LoWaterMark )
+ 308:	20 91 67 00 	lds	r18, 0x0067
+ 30c:	30 91 68 00 	lds	r19, 0x0068
+ 310:	82 17       	cp	r24, r18
+ 312:	93 07       	cpc	r25, r19
+ 314:	24 f4       	brge	.+8      	; 0x31e <Lcd_pixel+0x98>
+    {
+        // Обновляем нижнюю границу
+        LoWaterMark = index;
+ 316:	90 93 68 00 	sts	0x0068, r25
+ 31a:	80 93 67 00 	sts	0x0067, r24
+    }
+
+    if ( index > HiWaterMark )
+ 31e:	20 91 65 00 	lds	r18, 0x0065
+ 322:	30 91 66 00 	lds	r19, 0x0066
+ 326:	28 17       	cp	r18, r24
+ 328:	39 07       	cpc	r19, r25
+ 32a:	54 f4       	brge	.+20     	; 0x340 <Lcd_pixel+0xba>
+    {
+        // Обновляем верхнюю границу
+        HiWaterMark = index;
+ 32c:	90 93 66 00 	sts	0x0066, r25
+ 330:	80 93 65 00 	sts	0x0065, r24
+    }
+    return OK;
+ 334:	80 e0       	ldi	r24, 0x00	; 0
+ 336:	08 95       	ret
+    int  index;
+    byte  offset;
+    byte  data;
+
+    // Защита от выхода за пределы
+    if ( x >= LCD_X_RES || y >= LCD_Y_RES) return OUT_OF_BORDER;
+ 338:	81 e0       	ldi	r24, 0x01	; 1
+ 33a:	08 95       	ret
+ 33c:	81 e0       	ldi	r24, 0x01	; 1
+ 33e:	08 95       	ret
+    if ( index > HiWaterMark )
+    {
+        // Обновляем верхнюю границу
+        HiWaterMark = index;
+    }
+    return OK;
+ 340:	80 e0       	ldi	r24, 0x00	; 0
+}
+ 342:	08 95       	ret
+
+00000344 <Lcd_line>:
+ *                          x2, y2  -> абсолютные координаты конца линии
+ *                          mode    -> Off, On или Xor. Смотри enum в n5110.h
+ * Возвращаемое значение :  смотри возвращаемое значение в n5110lcd.h
+ */
+byte Lcd_line ( byte x1, byte y1, byte x2, byte y2, LcdPixelMode mode )
+{
+ 344:	7f 92       	push	r7
+ 346:	8f 92       	push	r8
+ 348:	9f 92       	push	r9
+ 34a:	af 92       	push	r10
+ 34c:	bf 92       	push	r11
+ 34e:	cf 92       	push	r12
+ 350:	df 92       	push	r13
+ 352:	ef 92       	push	r14
+ 354:	ff 92       	push	r15
+ 356:	0f 93       	push	r16
+ 358:	1f 93       	push	r17
+ 35a:	cf 93       	push	r28
+ 35c:	df 93       	push	r29
+ 35e:	b8 2e       	mov	r11, r24
+ 360:	16 2f       	mov	r17, r22
+ 362:	74 2e       	mov	r7, r20
+ 364:	82 2e       	mov	r8, r18
+
+    // dy   y2 - y1
+    // -- = -------
+    // dx   x2 - x1
+
+    dy = y2 - y1;
+ 366:	c2 2e       	mov	r12, r18
+ 368:	d1 2c       	mov	r13, r1
+ 36a:	c6 1a       	sub	r12, r22
+ 36c:	d1 08       	sbc	r13, r1
+    dx = x2 - x1;
+ 36e:	e4 2e       	mov	r14, r20
+ 370:	f1 2c       	mov	r15, r1
+ 372:	e8 1a       	sub	r14, r24
+ 374:	f1 08       	sbc	r15, r1
+
+    // dy отрицательное
+    if ( dy < 0 )
+ 376:	dd 20       	and	r13, r13
+ 378:	34 f4       	brge	.+12     	; 0x386 <Lcd_line+0x42>
+    {
+        dy    = -dy;
+ 37a:	d1 94       	neg	r13
+ 37c:	c1 94       	neg	r12
+ 37e:	d1 08       	sbc	r13, r1
+        stepy = -1;
+ 380:	99 24       	eor	r9, r9
+ 382:	9a 94       	dec	r9
+ 384:	02 c0       	rjmp	.+4      	; 0x38a <Lcd_line+0x46>
+    }
+    else
+    {
+        stepy = 1;
+ 386:	99 24       	eor	r9, r9
+ 388:	93 94       	inc	r9
+    }
+
+    // dx отрицательное
+    if ( dx < 0 )
+ 38a:	ff 20       	and	r15, r15
+ 38c:	34 f4       	brge	.+12     	; 0x39a <Lcd_line+0x56>
+    {
+        dx    = -dx;
+ 38e:	f1 94       	neg	r15
+ 390:	e1 94       	neg	r14
+ 392:	f1 08       	sbc	r15, r1
+        stepx = -1;
+ 394:	aa 24       	eor	r10, r10
+ 396:	aa 94       	dec	r10
+ 398:	02 c0       	rjmp	.+4      	; 0x39e <Lcd_line+0x5a>
+    }
+    else
+    {
+        stepx = 1;
+ 39a:	aa 24       	eor	r10, r10
+ 39c:	a3 94       	inc	r10
+
+    dx <<= 1;
+    dy <<= 1;
+
+    // Рисуем начальную точку
+    response = Lcd_pixel( x1, y1, mode );
+ 39e:	40 2f       	mov	r20, r16
+ 3a0:	61 2f       	mov	r22, r17
+ 3a2:	8b 2d       	mov	r24, r11
+ 3a4:	70 df       	rcall	.-288    	; 0x286 <Lcd_pixel>
+    if(response)
+ 3a6:	81 11       	cpse	r24, r1
+ 3a8:	3c c0       	rjmp	.+120    	; 0x422 <Lcd_line+0xde>
+    else
+    {
+        stepx = 1;
+    }
+
+    dx <<= 1;
+ 3aa:	ee 0c       	add	r14, r14
+ 3ac:	ff 1c       	adc	r15, r15
+    dy <<= 1;
+ 3ae:	cc 0c       	add	r12, r12
+ 3b0:	dd 1c       	adc	r13, r13
+    response = Lcd_pixel( x1, y1, mode );
+    if(response)
+        return response;
+
+    // Рисуем следующие точки до конца
+    if ( dx > dy )
+ 3b2:	ce 14       	cp	r12, r14
+ 3b4:	df 04       	cpc	r13, r15
+ 3b6:	cc f4       	brge	.+50     	; 0x3ea <Lcd_line+0xa6>
+    {
+        fraction = dy - ( dx >> 1);
+ 3b8:	c7 01       	movw	r24, r14
+ 3ba:	95 95       	asr	r25
+ 3bc:	87 95       	ror	r24
+ 3be:	e6 01       	movw	r28, r12
+ 3c0:	c8 1b       	sub	r28, r24
+ 3c2:	d9 0b       	sbc	r29, r25
+        while ( x1 != x2 )
+ 3c4:	7b 14       	cp	r7, r11
+ 3c6:	49 f1       	breq	.+82     	; 0x41a <Lcd_line+0xd6>
+        {
+            if ( fraction >= 0 )
+ 3c8:	dd 23       	and	r29, r29
+ 3ca:	1c f0       	brlt	.+6      	; 0x3d2 <Lcd_line+0x8e>
+            {
+                y1 += stepy;
+ 3cc:	19 0d       	add	r17, r9
+                fraction -= dx;
+ 3ce:	ce 19       	sub	r28, r14
+ 3d0:	df 09       	sbc	r29, r15
+            }
+            x1 += stepx;
+ 3d2:	ba 0c       	add	r11, r10
+            fraction += dy;
+ 3d4:	cc 0d       	add	r28, r12
+ 3d6:	dd 1d       	adc	r29, r13
+
+            response = Lcd_pixel( x1, y1, mode );
+ 3d8:	40 2f       	mov	r20, r16
+ 3da:	61 2f       	mov	r22, r17
+ 3dc:	8b 2d       	mov	r24, r11
+ 3de:	53 df       	rcall	.-346    	; 0x286 <Lcd_pixel>
+            if(response)
+ 3e0:	81 11       	cpse	r24, r1
+ 3e2:	1f c0       	rjmp	.+62     	; 0x422 <Lcd_line+0xde>
+
+    // Рисуем следующие точки до конца
+    if ( dx > dy )
+    {
+        fraction = dy - ( dx >> 1);
+        while ( x1 != x2 )
+ 3e4:	7b 10       	cpse	r7, r11
+ 3e6:	f0 cf       	rjmp	.-32     	; 0x3c8 <Lcd_line+0x84>
+ 3e8:	18 c0       	rjmp	.+48     	; 0x41a <Lcd_line+0xd6>
+
+        }
+    }
+    else
+    {
+        fraction = dx - ( dy >> 1);
+ 3ea:	c6 01       	movw	r24, r12
+ 3ec:	95 95       	asr	r25
+ 3ee:	87 95       	ror	r24
+ 3f0:	e7 01       	movw	r28, r14
+ 3f2:	c8 1b       	sub	r28, r24
+ 3f4:	d9 0b       	sbc	r29, r25
+        while ( y1 != y2 )
+ 3f6:	81 16       	cp	r8, r17
+ 3f8:	81 f0       	breq	.+32     	; 0x41a <Lcd_line+0xd6>
+        {
+            if ( fraction >= 0 )
+ 3fa:	dd 23       	and	r29, r29
+ 3fc:	1c f0       	brlt	.+6      	; 0x404 <Lcd_line+0xc0>
+            {
+                x1 += stepx;
+ 3fe:	ba 0c       	add	r11, r10
+                fraction -= dy;
+ 400:	cc 19       	sub	r28, r12
+ 402:	dd 09       	sbc	r29, r13
+            }
+            y1 += stepy;
+ 404:	19 0d       	add	r17, r9
+            fraction += dx;
+ 406:	ce 0d       	add	r28, r14
+ 408:	df 1d       	adc	r29, r15
+
+            response = Lcd_pixel( x1, y1, mode );
+ 40a:	40 2f       	mov	r20, r16
+ 40c:	61 2f       	mov	r22, r17
+ 40e:	8b 2d       	mov	r24, r11
+ 410:	3a df       	rcall	.-396    	; 0x286 <Lcd_pixel>
+            if(response)
+ 412:	81 11       	cpse	r24, r1
+ 414:	06 c0       	rjmp	.+12     	; 0x422 <Lcd_line+0xde>
+        }
+    }
+    else
+    {
+        fraction = dx - ( dy >> 1);
+        while ( y1 != y2 )
+ 416:	81 12       	cpse	r8, r17
+ 418:	f0 cf       	rjmp	.-32     	; 0x3fa <Lcd_line+0xb6>
+                return response;
+        }
+    }
+
+    // Установка флага изменений кэша
+    UpdateLcd = TRUE;
+ 41a:	81 e0       	ldi	r24, 0x01	; 1
+ 41c:	80 93 64 00 	sts	0x0064, r24
+    return OK;
+ 420:	80 e0       	ldi	r24, 0x00	; 0
+}
+ 422:	df 91       	pop	r29
+ 424:	cf 91       	pop	r28
+ 426:	1f 91       	pop	r17
+ 428:	0f 91       	pop	r16
+ 42a:	ff 90       	pop	r15
+ 42c:	ef 90       	pop	r14
+ 42e:	df 90       	pop	r13
+ 430:	cf 90       	pop	r12
+ 432:	bf 90       	pop	r11
+ 434:	af 90       	pop	r10
+ 436:	9f 90       	pop	r9
+ 438:	8f 90       	pop	r8
+ 43a:	7f 90       	pop	r7
+ 43c:	08 95       	ret
+
+0000043e <Lcd_circle>:
+ *                          radius -> радиус окружности
+ *                          mode   -> Off, On или Xor. Смотри enum в n5110.h
+ * Возвращаемое значение :  смотри возвращаемое значение в n5110lcd.h
+ */
+byte Lcd_circle(byte x, byte y, byte radius, LcdPixelMode mode)
+{
+ 43e:	9f 92       	push	r9
+ 440:	af 92       	push	r10
+ 442:	bf 92       	push	r11
+ 444:	cf 92       	push	r12
+ 446:	df 92       	push	r13
+ 448:	ef 92       	push	r14
+ 44a:	ff 92       	push	r15
+ 44c:	0f 93       	push	r16
+ 44e:	1f 93       	push	r17
+ 450:	cf 93       	push	r28
+ 452:	df 93       	push	r29
+ 454:	08 2f       	mov	r16, r24
+ 456:	f6 2e       	mov	r15, r22
+ 458:	c2 2f       	mov	r28, r18
+    signed char xc = 0;
+    signed char yc = 0;
+    signed char p = 0;
+
+    if ( x >= LCD_X_RES || y >= LCD_Y_RES) return OUT_OF_BORDER;
+ 45a:	84 35       	cpi	r24, 0x54	; 84
+ 45c:	08 f0       	brcs	.+2      	; 0x460 <__stack+0x1>
+ 45e:	5f c0       	rjmp	.+190    	; 0x51e <__stack+0xbf>
+ 460:	8f e2       	ldi	r24, 0x2F	; 47
+ 462:	86 17       	cp	r24, r22
+ 464:	08 f4       	brcc	.+2      	; 0x468 <__stack+0x9>
+ 466:	5d c0       	rjmp	.+186    	; 0x522 <__stack+0xc3>
+
+    yc = radius;
+ 468:	d4 2f       	mov	r29, r20
+    p = 3 - (radius<<1);
+ 46a:	44 0f       	add	r20, r20
+ 46c:	83 e0       	ldi	r24, 0x03	; 3
+ 46e:	e8 2e       	mov	r14, r24
+ 470:	e4 1a       	sub	r14, r20
+    while (xc <= yc)  
+ 472:	dd 23       	and	r29, r29
+ 474:	0c f4       	brge	.+2      	; 0x478 <__stack+0x19>
+ 476:	4e c0       	rjmp	.+156    	; 0x514 <__stack+0xb5>
+ 478:	dd 24       	eor	r13, r13
+ 47a:	d3 94       	inc	r13
+ 47c:	10 e0       	ldi	r17, 0x00	; 0
+    {
+        Lcd_pixel(x + xc, y + yc, mode);
+ 47e:	9d 2e       	mov	r9, r29
+ 480:	4c 2f       	mov	r20, r28
+ 482:	cd 2e       	mov	r12, r29
+ 484:	cf 0c       	add	r12, r15
+ 486:	6c 2d       	mov	r22, r12
+ 488:	a1 2e       	mov	r10, r17
+ 48a:	a0 0e       	add	r10, r16
+ 48c:	8a 2d       	mov	r24, r10
+ 48e:	fb de       	rcall	.-522    	; 0x286 <Lcd_pixel>
+        Lcd_pixel(x + xc, y - yc, mode);
+ 490:	4c 2f       	mov	r20, r28
+ 492:	bf 2c       	mov	r11, r15
+ 494:	bd 1a       	sub	r11, r29
+ 496:	6b 2d       	mov	r22, r11
+ 498:	8a 2d       	mov	r24, r10
+ 49a:	f5 de       	rcall	.-534    	; 0x286 <Lcd_pixel>
+        Lcd_pixel(x - xc, y + yc, mode);
+ 49c:	4c 2f       	mov	r20, r28
+ 49e:	6c 2d       	mov	r22, r12
+ 4a0:	c0 2e       	mov	r12, r16
+ 4a2:	c1 1a       	sub	r12, r17
+ 4a4:	8c 2d       	mov	r24, r12
+ 4a6:	ef de       	rcall	.-546    	; 0x286 <Lcd_pixel>
+        Lcd_pixel(x - xc, y - yc, mode);
+ 4a8:	4c 2f       	mov	r20, r28
+ 4aa:	6b 2d       	mov	r22, r11
+ 4ac:	8c 2d       	mov	r24, r12
+ 4ae:	eb de       	rcall	.-554    	; 0x286 <Lcd_pixel>
+        Lcd_pixel(x + yc, y + xc, mode);
+ 4b0:	4c 2f       	mov	r20, r28
+ 4b2:	c1 2e       	mov	r12, r17
+ 4b4:	cf 0c       	add	r12, r15
+ 4b6:	6c 2d       	mov	r22, r12
+ 4b8:	ad 2e       	mov	r10, r29
+ 4ba:	a0 0e       	add	r10, r16
+ 4bc:	8a 2d       	mov	r24, r10
+ 4be:	e3 de       	rcall	.-570    	; 0x286 <Lcd_pixel>
+        Lcd_pixel(x + yc, y - xc, mode);
+ 4c0:	4c 2f       	mov	r20, r28
+ 4c2:	bf 2c       	mov	r11, r15
+ 4c4:	b1 1a       	sub	r11, r17
+ 4c6:	6b 2d       	mov	r22, r11
+ 4c8:	8a 2d       	mov	r24, r10
+ 4ca:	dd de       	rcall	.-582    	; 0x286 <Lcd_pixel>
+        Lcd_pixel(x - yc, y + xc, mode);
+ 4cc:	4c 2f       	mov	r20, r28
+ 4ce:	6c 2d       	mov	r22, r12
+ 4d0:	c0 2e       	mov	r12, r16
+ 4d2:	cd 1a       	sub	r12, r29
+ 4d4:	8c 2d       	mov	r24, r12
+ 4d6:	d7 de       	rcall	.-594    	; 0x286 <Lcd_pixel>
+        Lcd_pixel(x - yc, y - xc, mode);
+ 4d8:	4c 2f       	mov	r20, r28
+ 4da:	6b 2d       	mov	r22, r11
+ 4dc:	8c 2d       	mov	r24, r12
+ 4de:	d3 de       	rcall	.-602    	; 0x286 <Lcd_pixel>
+        if (p < 0) p += (xc++ << 2) + 6;
+ 4e0:	ee 20       	and	r14, r14
+ 4e2:	4c f4       	brge	.+18     	; 0x4f6 <__stack+0x97>
+ 4e4:	8d 2d       	mov	r24, r13
+ 4e6:	26 e0       	ldi	r18, 0x06	; 6
+ 4e8:	2e 0d       	add	r18, r14
+ 4ea:	91 2f       	mov	r25, r17
+ 4ec:	99 0f       	add	r25, r25
+ 4ee:	99 0f       	add	r25, r25
+ 4f0:	e2 2e       	mov	r14, r18
+ 4f2:	e9 0e       	add	r14, r25
+ 4f4:	0a c0       	rjmp	.+20     	; 0x50a <__stack+0xab>
+            else p += ((xc++ - yc--)<<2) + 10;
+ 4f6:	8d 2d       	mov	r24, r13
+ 4f8:	d1 50       	subi	r29, 0x01	; 1
+ 4fa:	2a e0       	ldi	r18, 0x0A	; 10
+ 4fc:	2e 0d       	add	r18, r14
+ 4fe:	91 2f       	mov	r25, r17
+ 500:	99 19       	sub	r25, r9
+ 502:	99 0f       	add	r25, r25
+ 504:	99 0f       	add	r25, r25
+ 506:	e2 2e       	mov	r14, r18
+ 508:	e9 0e       	add	r14, r25
+ 50a:	1f 5f       	subi	r17, 0xFF	; 255
+ 50c:	d3 94       	inc	r13
+
+    if ( x >= LCD_X_RES || y >= LCD_Y_RES) return OUT_OF_BORDER;
+
+    yc = radius;
+    p = 3 - (radius<<1);
+    while (xc <= yc)  
+ 50e:	d8 17       	cp	r29, r24
+ 510:	0c f0       	brlt	.+2      	; 0x514 <__stack+0xb5>
+ 512:	b5 cf       	rjmp	.-150    	; 0x47e <__stack+0x1f>
+        if (p < 0) p += (xc++ << 2) + 6;
+            else p += ((xc++ - yc--)<<2) + 10;
+    }
+
+    // Установка флага изменений кэша
+    UpdateLcd = TRUE;
+ 514:	81 e0       	ldi	r24, 0x01	; 1
+ 516:	80 93 64 00 	sts	0x0064, r24
+    return OK;
+ 51a:	80 e0       	ldi	r24, 0x00	; 0
+ 51c:	03 c0       	rjmp	.+6      	; 0x524 <__stack+0xc5>
+{
+    signed char xc = 0;
+    signed char yc = 0;
+    signed char p = 0;
+
+    if ( x >= LCD_X_RES || y >= LCD_Y_RES) return OUT_OF_BORDER;
+ 51e:	81 e0       	ldi	r24, 0x01	; 1
+ 520:	01 c0       	rjmp	.+2      	; 0x524 <__stack+0xc5>
+ 522:	81 e0       	ldi	r24, 0x01	; 1
+    }
+
+    // Установка флага изменений кэша
+    UpdateLcd = TRUE;
+    return OK;
+}
+ 524:	df 91       	pop	r29
+ 526:	cf 91       	pop	r28
+ 528:	1f 91       	pop	r17
+ 52a:	0f 91       	pop	r16
+ 52c:	ff 90       	pop	r15
+ 52e:	ef 90       	pop	r14
+ 530:	df 90       	pop	r13
+ 532:	cf 90       	pop	r12
+ 534:	bf 90       	pop	r11
+ 536:	af 90       	pop	r10
+ 538:	9f 90       	pop	r9
+ 53a:	08 95       	ret
+
+0000053c <__divmodhi4>:
+ 53c:	97 fb       	bst	r25, 7
+ 53e:	07 2e       	mov	r0, r23
+ 540:	16 f4       	brtc	.+4      	; 0x546 <__divmodhi4+0xa>
+ 542:	00 94       	com	r0
+ 544:	06 d0       	rcall	.+12     	; 0x552 <__divmodhi4_neg1>
+ 546:	77 fd       	sbrc	r23, 7
+ 548:	08 d0       	rcall	.+16     	; 0x55a <__divmodhi4_neg2>
+ 54a:	0b d0       	rcall	.+22     	; 0x562 <__udivmodhi4>
+ 54c:	07 fc       	sbrc	r0, 7
+ 54e:	05 d0       	rcall	.+10     	; 0x55a <__divmodhi4_neg2>
+ 550:	3e f4       	brtc	.+14     	; 0x560 <__divmodhi4_exit>
+
+00000552 <__divmodhi4_neg1>:
+ 552:	90 95       	com	r25
+ 554:	81 95       	neg	r24
+ 556:	9f 4f       	sbci	r25, 0xFF	; 255
+ 558:	08 95       	ret
+
+0000055a <__divmodhi4_neg2>:
+ 55a:	70 95       	com	r23
+ 55c:	61 95       	neg	r22
+ 55e:	7f 4f       	sbci	r23, 0xFF	; 255
+
+00000560 <__divmodhi4_exit>:
+ 560:	08 95       	ret
+
+00000562 <__udivmodhi4>:
+ 562:	aa 1b       	sub	r26, r26
+ 564:	bb 1b       	sub	r27, r27
+ 566:	51 e1       	ldi	r21, 0x11	; 17
+ 568:	07 c0       	rjmp	.+14     	; 0x578 <__udivmodhi4_ep>
+
+0000056a <__udivmodhi4_loop>:
+ 56a:	aa 1f       	adc	r26, r26
+ 56c:	bb 1f       	adc	r27, r27
+ 56e:	a6 17       	cp	r26, r22
+ 570:	b7 07       	cpc	r27, r23
+ 572:	10 f0       	brcs	.+4      	; 0x578 <__udivmodhi4_ep>
+ 574:	a6 1b       	sub	r26, r22
+ 576:	b7 0b       	sbc	r27, r23
+
+00000578 <__udivmodhi4_ep>:
+ 578:	88 1f       	adc	r24, r24
+ 57a:	99 1f       	adc	r25, r25
+ 57c:	5a 95       	dec	r21
+ 57e:	a9 f7       	brne	.-22     	; 0x56a <__udivmodhi4_loop>
+ 580:	80 95       	com	r24
+ 582:	90 95       	com	r25
+ 584:	bc 01       	movw	r22, r24
+ 586:	cd 01       	movw	r24, r26
+ 588:	08 95       	ret
+
+0000058a <do_rand>:
+ 58a:	8f 92       	push	r8
+ 58c:	9f 92       	push	r9
+ 58e:	af 92       	push	r10
+ 590:	bf 92       	push	r11
+ 592:	cf 92       	push	r12
+ 594:	df 92       	push	r13
+ 596:	ef 92       	push	r14
+ 598:	ff 92       	push	r15
+ 59a:	cf 93       	push	r28
+ 59c:	df 93       	push	r29
+ 59e:	ec 01       	movw	r28, r24
+ 5a0:	68 81       	ld	r22, Y
+ 5a2:	79 81       	ldd	r23, Y+1	; 0x01
+ 5a4:	8a 81       	ldd	r24, Y+2	; 0x02
+ 5a6:	9b 81       	ldd	r25, Y+3	; 0x03
+ 5a8:	61 15       	cp	r22, r1
+ 5aa:	71 05       	cpc	r23, r1
+ 5ac:	81 05       	cpc	r24, r1
+ 5ae:	91 05       	cpc	r25, r1
+ 5b0:	21 f4       	brne	.+8      	; 0x5ba <do_rand+0x30>
+ 5b2:	64 e2       	ldi	r22, 0x24	; 36
+ 5b4:	79 ed       	ldi	r23, 0xD9	; 217
+ 5b6:	8b e5       	ldi	r24, 0x5B	; 91
+ 5b8:	97 e0       	ldi	r25, 0x07	; 7
+ 5ba:	2d e1       	ldi	r18, 0x1D	; 29
+ 5bc:	33 ef       	ldi	r19, 0xF3	; 243
+ 5be:	41 e0       	ldi	r20, 0x01	; 1
+ 5c0:	50 e0       	ldi	r21, 0x00	; 0
+ 5c2:	3c d0       	rcall	.+120    	; 0x63c <__divmodsi4>
+ 5c4:	49 01       	movw	r8, r18
+ 5c6:	5a 01       	movw	r10, r20
+ 5c8:	9b 01       	movw	r18, r22
+ 5ca:	ac 01       	movw	r20, r24
+ 5cc:	a7 ea       	ldi	r26, 0xA7	; 167
+ 5ce:	b1 e4       	ldi	r27, 0x41	; 65
+ 5d0:	51 d0       	rcall	.+162    	; 0x674 <__muluhisi3>
+ 5d2:	6b 01       	movw	r12, r22
+ 5d4:	7c 01       	movw	r14, r24
+ 5d6:	ac ee       	ldi	r26, 0xEC	; 236
+ 5d8:	b4 ef       	ldi	r27, 0xF4	; 244
+ 5da:	a5 01       	movw	r20, r10
+ 5dc:	94 01       	movw	r18, r8
+ 5de:	56 d0       	rcall	.+172    	; 0x68c <__mulohisi3>
+ 5e0:	c6 0e       	add	r12, r22
+ 5e2:	d7 1e       	adc	r13, r23
+ 5e4:	e8 1e       	adc	r14, r24
+ 5e6:	f9 1e       	adc	r15, r25
+ 5e8:	f7 fe       	sbrs	r15, 7
+ 5ea:	06 c0       	rjmp	.+12     	; 0x5f8 <do_rand+0x6e>
+ 5ec:	81 e0       	ldi	r24, 0x01	; 1
+ 5ee:	c8 1a       	sub	r12, r24
+ 5f0:	d1 08       	sbc	r13, r1
+ 5f2:	e1 08       	sbc	r14, r1
+ 5f4:	80 e8       	ldi	r24, 0x80	; 128
+ 5f6:	f8 0a       	sbc	r15, r24
+ 5f8:	c8 82       	st	Y, r12
+ 5fa:	d9 82       	std	Y+1, r13	; 0x01
+ 5fc:	ea 82       	std	Y+2, r14	; 0x02
+ 5fe:	fb 82       	std	Y+3, r15	; 0x03
+ 600:	c6 01       	movw	r24, r12
+ 602:	9f 77       	andi	r25, 0x7F	; 127
+ 604:	df 91       	pop	r29
+ 606:	cf 91       	pop	r28
+ 608:	ff 90       	pop	r15
+ 60a:	ef 90       	pop	r14
+ 60c:	df 90       	pop	r13
+ 60e:	cf 90       	pop	r12
+ 610:	bf 90       	pop	r11
+ 612:	af 90       	pop	r10
+ 614:	9f 90       	pop	r9
+ 616:	8f 90       	pop	r8
+ 618:	08 95       	ret
+
+0000061a <rand_r>:
+ 61a:	b7 df       	rcall	.-146    	; 0x58a <do_rand>
+ 61c:	08 95       	ret
+
+0000061e <rand>:
+ 61e:	80 e6       	ldi	r24, 0x60	; 96
+ 620:	90 e0       	ldi	r25, 0x00	; 0
+ 622:	b3 df       	rcall	.-154    	; 0x58a <do_rand>
+ 624:	08 95       	ret
+
+00000626 <srand>:
+ 626:	a0 e0       	ldi	r26, 0x00	; 0
+ 628:	b0 e0       	ldi	r27, 0x00	; 0
+ 62a:	80 93 60 00 	sts	0x0060, r24
+ 62e:	90 93 61 00 	sts	0x0061, r25
+ 632:	a0 93 62 00 	sts	0x0062, r26
+ 636:	b0 93 63 00 	sts	0x0063, r27
+ 63a:	08 95       	ret
+
+0000063c <__divmodsi4>:
+ 63c:	05 2e       	mov	r0, r21
+ 63e:	97 fb       	bst	r25, 7
+ 640:	16 f4       	brtc	.+4      	; 0x646 <__divmodsi4+0xa>
+ 642:	00 94       	com	r0
+ 644:	0f d0       	rcall	.+30     	; 0x664 <__negsi2>
+ 646:	57 fd       	sbrc	r21, 7
+ 648:	05 d0       	rcall	.+10     	; 0x654 <__divmodsi4_neg2>
+ 64a:	24 d0       	rcall	.+72     	; 0x694 <__udivmodsi4>
+ 64c:	07 fc       	sbrc	r0, 7
+ 64e:	02 d0       	rcall	.+4      	; 0x654 <__divmodsi4_neg2>
+ 650:	46 f4       	brtc	.+16     	; 0x662 <__divmodsi4_exit>
+ 652:	08 c0       	rjmp	.+16     	; 0x664 <__negsi2>
+
+00000654 <__divmodsi4_neg2>:
+ 654:	50 95       	com	r21
+ 656:	40 95       	com	r20
+ 658:	30 95       	com	r19
+ 65a:	21 95       	neg	r18
+ 65c:	3f 4f       	sbci	r19, 0xFF	; 255
+ 65e:	4f 4f       	sbci	r20, 0xFF	; 255
+ 660:	5f 4f       	sbci	r21, 0xFF	; 255
+
+00000662 <__divmodsi4_exit>:
+ 662:	08 95       	ret
+
+00000664 <__negsi2>:
+ 664:	90 95       	com	r25
+ 666:	80 95       	com	r24
+ 668:	70 95       	com	r23
+ 66a:	61 95       	neg	r22
+ 66c:	7f 4f       	sbci	r23, 0xFF	; 255
+ 66e:	8f 4f       	sbci	r24, 0xFF	; 255
+ 670:	9f 4f       	sbci	r25, 0xFF	; 255
+ 672:	08 95       	ret
+
+00000674 <__muluhisi3>:
+ 674:	31 d0       	rcall	.+98     	; 0x6d8 <__umulhisi3>
+ 676:	a5 9f       	mul	r26, r21
+ 678:	90 0d       	add	r25, r0
+ 67a:	b4 9f       	mul	r27, r20
+ 67c:	90 0d       	add	r25, r0
+ 67e:	a4 9f       	mul	r26, r20
+ 680:	80 0d       	add	r24, r0
+ 682:	91 1d       	adc	r25, r1
+ 684:	11 24       	eor	r1, r1
+ 686:	08 95       	ret
+
+00000688 <__mulshisi3>:
+ 688:	b7 ff       	sbrs	r27, 7
+ 68a:	f4 cf       	rjmp	.-24     	; 0x674 <__muluhisi3>
+
+0000068c <__mulohisi3>:
+ 68c:	f3 df       	rcall	.-26     	; 0x674 <__muluhisi3>
+ 68e:	82 1b       	sub	r24, r18
+ 690:	93 0b       	sbc	r25, r19
+ 692:	08 95       	ret
+
+00000694 <__udivmodsi4>:
+ 694:	a1 e2       	ldi	r26, 0x21	; 33
+ 696:	1a 2e       	mov	r1, r26
+ 698:	aa 1b       	sub	r26, r26
+ 69a:	bb 1b       	sub	r27, r27
+ 69c:	fd 01       	movw	r30, r26
+ 69e:	0d c0       	rjmp	.+26     	; 0x6ba <__udivmodsi4_ep>
+
+000006a0 <__udivmodsi4_loop>:
+ 6a0:	aa 1f       	adc	r26, r26
+ 6a2:	bb 1f       	adc	r27, r27
+ 6a4:	ee 1f       	adc	r30, r30
+ 6a6:	ff 1f       	adc	r31, r31
+ 6a8:	a2 17       	cp	r26, r18
+ 6aa:	b3 07       	cpc	r27, r19
+ 6ac:	e4 07       	cpc	r30, r20
+ 6ae:	f5 07       	cpc	r31, r21
+ 6b0:	20 f0       	brcs	.+8      	; 0x6ba <__udivmodsi4_ep>
+ 6b2:	a2 1b       	sub	r26, r18
+ 6b4:	b3 0b       	sbc	r27, r19
+ 6b6:	e4 0b       	sbc	r30, r20
+ 6b8:	f5 0b       	sbc	r31, r21
+
+000006ba <__udivmodsi4_ep>:
+ 6ba:	66 1f       	adc	r22, r22
+ 6bc:	77 1f       	adc	r23, r23
+ 6be:	88 1f       	adc	r24, r24
+ 6c0:	99 1f       	adc	r25, r25
+ 6c2:	1a 94       	dec	r1
+ 6c4:	69 f7       	brne	.-38     	; 0x6a0 <__udivmodsi4_loop>
+ 6c6:	60 95       	com	r22
+ 6c8:	70 95       	com	r23
+ 6ca:	80 95       	com	r24
+ 6cc:	90 95       	com	r25
+ 6ce:	9b 01       	movw	r18, r22
+ 6d0:	ac 01       	movw	r20, r24
+ 6d2:	bd 01       	movw	r22, r26
+ 6d4:	cf 01       	movw	r24, r30
+ 6d6:	08 95       	ret
+
+000006d8 <__umulhisi3>:
+ 6d8:	a2 9f       	mul	r26, r18
+ 6da:	b0 01       	movw	r22, r0
+ 6dc:	b3 9f       	mul	r27, r19
+ 6de:	c0 01       	movw	r24, r0
+ 6e0:	a3 9f       	mul	r26, r19
+ 6e2:	01 d0       	rcall	.+2      	; 0x6e6 <__umulhisi3+0xe>
+ 6e4:	b2 9f       	mul	r27, r18
+ 6e6:	70 0d       	add	r23, r0
+ 6e8:	81 1d       	adc	r24, r1
+ 6ea:	11 24       	eor	r1, r1
+ 6ec:	91 1d       	adc	r25, r1
+ 6ee:	08 95       	ret
+
+000006f0 <_exit>:
+ 6f0:	f8 94       	cli
+
+000006f2 <__stop_program>:
+ 6f2:	ff cf       	rjmp	.-2      	; 0x6f2 <__stop_program>
