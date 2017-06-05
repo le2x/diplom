@@ -23,6 +23,8 @@ int int1Led = 1;
 int int0Led = 1;
 
 int WholePWM = 0, LeftBalancePWM = 0, RightBalancePWM = 0, Spiral = 1;
+int impulseLeftPerWheel = 0, impulseLeftPerWheeltemp = 0, impulseRightPerWheel = 0, impulseRightPerWheeltemp = 0; //переменные для скорости вращения колёс
+
 
 void init_UART()
 {
@@ -66,16 +68,21 @@ void init_UART()
 
 void init_pwm()
 {
-	TCCR0|=(1<<WGM00)|(1<<WGM01)|(1<<COM01)|(1<<CS01) |(1<<CS00);
-	OCR0 = 0x00; //начальное состояние 0
+	TIMSK |= (1<<TOIE2)|(1<<TOIE0);
+//	TCCR0|=(1<<WGM00)|(1<<WGM01)|(1<<COM01)|(1<<CS01);
+//	OCR0 = 0x00; //начальное состояние 0
 	
-	TCCR2|=(1<<WGM20)|(1<<WGM21)|(1<<COM21)|(1<<CS21) |(1<<CS20);
-	OCR2 = 0x00; //начальное состояние 0
+//	TCCR2|=(1<<WGM20)|(1<<WGM21)|(1<<COM21)|(1<<CS21);
+//	OCR2 = 0x00; //начальное состояние 0
 	
-	DDRD |= (1<<PD7);
-	DDRB |= (1<<PB3);
+	TCCR1A = (1<<COM1A1)|(1<<WGM10)|(1<<COM1B1)|(1<<WGM12);
+	TCCR1B = (1<<CS11); //предделитель = 1
+	OCR1A = 0x00; //начальное состо¤ние 0
+	
+	DDRD |= (1<<PD4)|(1<<PD5);
+	//DDRB |= (1<<PB3);
 }
-/*
+
 void int0_init( void )
 {
 	//настраиваем на срабатывание INT0 по переднему фронту
@@ -87,10 +94,23 @@ void int0_init( void )
 
 ISR( INT0_vect )
 {
-	//int0_cnt++;
-	PORTC = 0b00000001;			//	Включаем диод PC0 = 1 = Vcc
+	int0Led++;
+		//PORTC = 0b00000001;			//	Включаем диод PC0 = 1 = Vcc
 }
-*/
+
+ISR( INT1_vect ){
+	int0Led++;
+	//PORTC = 0b00000001;			//	Включаем диод PC0 = 1 = Vcc
+}
+
+ISR(TIMER0_OVF_vect){
+	
+}
+
+ISR(TIMER2_OVF_vect){
+	
+}
+
 
 //	UART
 void send_Uart(unsigned char c)//	Отправка байта
@@ -134,15 +154,24 @@ int main()
 	send_Uart(13);					//	перенос строки
 	
 	init_pwm();
+	int0_init();
 	
 	DDRA = 0xFF;
+	DDRC |= (1<<PC7);
 	PORTA |= (1<<PA4) | (1<<PA6);
 	
 	WholePWM = 180;
 	OCR2 = (WholePWM+LeftBalancePWM)*Spiral;
 	OCR0 = WholePWM+RightBalancePWM;
+	OCR1A = WholePWM+RightBalancePWM;
+	OCR1B = WholePWM+RightBalancePWM;
 	send_int_Uart(OCR2);
 	send_int_Uart(OCR0);
+	
+	PORTC |= (1<<PC7);
+	_delay_ms(1000);
+	PORTC &= ~(1<<PC7);
+	_delay_ms(1000);
 	/*DDRC = 0xff;				//	инициализация порта C, PC0 - выход
 	DDRB = 0xff;
 	DDRD &= (1<<PD2);
@@ -223,7 +252,24 @@ int main()
 			// LED off
 			PORTC &= ~(1<<PC0);			//	Выключаем диод PC0 = 0 = Vcc
 		}	*/
-		
-		
+		uint8_t i = 0;
+		int iterator = 0;
+		while(1){
+			/*
+			 i = PIND;
+			if((1<<PD2) & i) {
+				int0Led++;
+				PORTC |= (1<<PC7);
+				_delay_ms(1000);
+				PORTC &= ~(1<<PC7);
+				_delay_ms(1000);
+			}
+			*/
+			if((iterator%100) == 0){
+				send_int_Uart(int0Led);			//	отправка числа
+				send_Uart(13);					//	перенос строки
+			}
+			
+		}
 			
 }
