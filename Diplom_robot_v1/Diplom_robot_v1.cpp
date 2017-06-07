@@ -131,18 +131,22 @@ ISR(TIMER0_OVF_vect){
 
 void MoveForward(){
 	send_Uart_str("MoveForward");	//	отправка строки
-	send_Uart(13);					//	перенос строки
 	PORTA |= (1<<POWER_LEFT_MOTOR) | (1<<POWER_RIGHT_MOTOR); 
 	if(!isImpulseLeftUsed && !isImpulseRightUsed){
 	compareTemp = impulseLeftPerWheeltemp - impulseRightPerWheeltemp;
 	isImpulseLeftUsed = true; isImpulseRightUsed = true;
 	impulseLeftPerWheeltemp = 0; impulseRightPerWheeltemp = 0;
+	send_Uart_str("  comparetemp = ");
+	send_int_Uart(compareTemp);
 	}
+	
+	send_Uart(13);		
 	if (compareTemp<0-COMPARE_RATE){
 		if (OCR1A < 255){
 			LeftBalancePWM += 5;
 		}else{
 			RightBalancePWM -=5;
+		}
 	}
 	if (compareTemp>0+COMPARE_RATE){
 		if(OCR1B< 255){
@@ -152,8 +156,8 @@ void MoveForward(){
 		}
 	}
 	compareTemp = 0;	
-	OCR1A = (WholePWM+LeftBalancePWM)*Spiral;
-	OCR1B = WholePWM+RightBalancePWM;
+	OCR1B = (WholePWM+LeftBalancePWM)*Spiral;
+	OCR1A = WholePWM+RightBalancePWM;
 }
 
 void PortsInit(){

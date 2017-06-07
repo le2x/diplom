@@ -3,29 +3,29 @@ Diplom_robot_v1.elf:     file format elf32-avr
 
 Sections:
 Idx Name          Size      VMA       LMA       File off  Algn
-  0 .text         000004f4  00000000  00000000  00000094  2**1
+  0 .text         00000556  00000000  00000000  00000094  2**1
                   CONTENTS, ALLOC, LOAD, READONLY, CODE
-  1 .data         00000050  00800060  000004f4  00000588  2**0
+  1 .data         00000060  00800060  00000556  000005ea  2**0
                   CONTENTS, ALLOC, LOAD, DATA
-  2 .bss          00000010  008000b0  008000b0  000005d8  2**0
+  2 .bss          00000010  008000c0  008000c0  0000064a  2**0
                   ALLOC
-  3 .comment      00000030  00000000  00000000  000005d8  2**0
+  3 .comment      00000030  00000000  00000000  0000064a  2**0
                   CONTENTS, READONLY
-  4 .debug_aranges 00000088  00000000  00000000  00000608  2**0
+  4 .debug_aranges 00000088  00000000  00000000  0000067a  2**0
                   CONTENTS, READONLY, DEBUGGING
-  5 .debug_info   0000060e  00000000  00000000  00000690  2**0
+  5 .debug_info   00000633  00000000  00000000  00000702  2**0
                   CONTENTS, READONLY, DEBUGGING
-  6 .debug_abbrev 000001ec  00000000  00000000  00000c9e  2**0
+  6 .debug_abbrev 000001ec  00000000  00000000  00000d35  2**0
                   CONTENTS, READONLY, DEBUGGING
-  7 .debug_line   0000027c  00000000  00000000  00000e8a  2**0
+  7 .debug_line   0000027b  00000000  00000000  00000f21  2**0
                   CONTENTS, READONLY, DEBUGGING
-  8 .debug_frame  000001c4  00000000  00000000  00001108  2**2
+  8 .debug_frame  000001c4  00000000  00000000  0000119c  2**2
                   CONTENTS, READONLY, DEBUGGING
-  9 .debug_str    0000039a  00000000  00000000  000012cc  2**0
+  9 .debug_str    0000039a  00000000  00000000  00001360  2**0
                   CONTENTS, READONLY, DEBUGGING
- 10 .debug_loc    00000395  00000000  00000000  00001666  2**0
+ 10 .debug_loc    00000395  00000000  00000000  000016fa  2**0
                   CONTENTS, READONLY, DEBUGGING
- 11 .debug_ranges 00000078  00000000  00000000  000019fb  2**0
+ 11 .debug_ranges 00000078  00000000  00000000  00001a8f  2**0
                   CONTENTS, READONLY, DEBUGGING
 
 Disassembly of section .text:
@@ -65,18 +65,18 @@ Disassembly of section .text:
   60:	10 e0       	ldi	r17, 0x00	; 0
   62:	a0 e6       	ldi	r26, 0x60	; 96
   64:	b0 e0       	ldi	r27, 0x00	; 0
-  66:	e4 ef       	ldi	r30, 0xF4	; 244
-  68:	f4 e0       	ldi	r31, 0x04	; 4
+  66:	e6 e5       	ldi	r30, 0x56	; 86
+  68:	f5 e0       	ldi	r31, 0x05	; 5
   6a:	02 c0       	rjmp	.+4      	; 0x70 <__do_copy_data+0x10>
   6c:	05 90       	lpm	r0, Z+
   6e:	0d 92       	st	X+, r0
-  70:	a0 3b       	cpi	r26, 0xB0	; 176
+  70:	a0 3c       	cpi	r26, 0xC0	; 192
   72:	b1 07       	cpc	r27, r17
   74:	d9 f7       	brne	.-10     	; 0x6c <__do_copy_data+0xc>
 
 00000076 <__do_clear_bss>:
   76:	20 e0       	ldi	r18, 0x00	; 0
-  78:	a0 eb       	ldi	r26, 0xB0	; 176
+  78:	a0 ec       	ldi	r26, 0xC0	; 192
   7a:	b0 e0       	ldi	r27, 0x00	; 0
   7c:	01 c0       	rjmp	.+2      	; 0x80 <.do_clear_bss_start>
 
@@ -84,11 +84,11 @@ Disassembly of section .text:
   7e:	1d 92       	st	X+, r1
 
 00000080 <.do_clear_bss_start>:
-  80:	a0 3c       	cpi	r26, 0xC0	; 192
+  80:	a0 3d       	cpi	r26, 0xD0	; 208
   82:	b2 07       	cpc	r27, r18
   84:	e1 f7       	brne	.-8      	; 0x7e <.do_clear_bss_loop>
-  86:	0e 94 29 02 	call	0x452	; 0x452 <main>
-  8a:	0c 94 78 02 	jmp	0x4f0	; 0x4f0 <_exit>
+  86:	0e 94 5a 02 	call	0x4b4	; 0x4b4 <main>
+  8a:	0c 94 a9 02 	jmp	0x552	; 0x552 <_exit>
 
 0000008e <__bad_interrupt>:
   8e:	0c 94 00 00 	jmp	0	; 0x0 <__vectors>
@@ -172,7 +172,7 @@ void send_int_Uart(unsigned int c)//	Отправка числа от 0000 до 
   e4:	23 27       	eor	r18, r19
   e6:	a7 e4       	ldi	r26, 0x47	; 71
   e8:	b3 e0       	ldi	r27, 0x03	; 3
-  ea:	0e 94 69 02 	call	0x4d2	; 0x4d2 <__umulhisi3>
+  ea:	0e 94 9a 02 	call	0x534	; 0x534 <__umulhisi3>
   ee:	ec 01       	movw	r28, r24
   f0:	d6 95       	lsr	r29
   f2:	c7 95       	ror	r28
@@ -200,7 +200,7 @@ void send_int_Uart(unsigned int c)//	Отправка числа от 0000 до 
  11c:	27 95       	ror	r18
  11e:	ab e7       	ldi	r26, 0x7B	; 123
  120:	b4 e1       	ldi	r27, 0x14	; 20
- 122:	0e 94 69 02 	call	0x4d2	; 0x4d2 <__umulhisi3>
+ 122:	0e 94 9a 02 	call	0x534	; 0x534 <__umulhisi3>
  126:	8c 01       	movw	r16, r24
  128:	16 95       	lsr	r17
  12a:	07 95       	ror	r16
@@ -290,8 +290,8 @@ void send_int_Uart(unsigned int c)//	Отправка числа от 0000 до 
 	OCR1A = (WholePWM+RightBalancePWM)*Spiral;
  1b4:	40 91 62 00 	lds	r20, 0x0062
  1b8:	50 91 63 00 	lds	r21, 0x0063
- 1bc:	80 91 bc 00 	lds	r24, 0x00BC
- 1c0:	90 91 bd 00 	lds	r25, 0x00BD
+ 1bc:	80 91 cc 00 	lds	r24, 0x00CC
+ 1c0:	90 91 cd 00 	lds	r25, 0x00CD
  1c4:	48 0f       	add	r20, r24
  1c6:	59 1f       	adc	r21, r25
  1c8:	20 91 60 00 	lds	r18, 0x0060
@@ -308,8 +308,8 @@ void send_int_Uart(unsigned int c)//	Отправка числа от 0000 до 
 	OCR1B = WholePWM+RightBalancePWM;
  1e2:	20 91 62 00 	lds	r18, 0x0062
  1e6:	30 91 63 00 	lds	r19, 0x0063
- 1ea:	80 91 bc 00 	lds	r24, 0x00BC
- 1ee:	90 91 bd 00 	lds	r25, 0x00BD
+ 1ea:	80 91 cc 00 	lds	r24, 0x00CC
+ 1ee:	90 91 cd 00 	lds	r25, 0x00CD
  1f2:	82 0f       	add	r24, r18
  1f4:	93 1f       	adc	r25, r19
  1f6:	99 bd       	out	0x29, r25	; 41
@@ -373,19 +373,19 @@ ISR( INT0_vect )
  238:	ef 93       	push	r30
  23a:	ff 93       	push	r31
 	impulseLeftPerWheeltemp = impulseLeftPerWheel;
- 23c:	80 91 ba 00 	lds	r24, 0x00BA
- 240:	90 91 bb 00 	lds	r25, 0x00BB
- 244:	90 93 b9 00 	sts	0x00B9, r25
- 248:	80 93 b8 00 	sts	0x00B8, r24
+ 23c:	80 91 ca 00 	lds	r24, 0x00CA
+ 240:	90 91 cb 00 	lds	r25, 0x00CB
+ 244:	90 93 c9 00 	sts	0x00C9, r25
+ 248:	80 93 c8 00 	sts	0x00C8, r24
 	isImpulseLeftUsed = false;
- 24c:	10 92 b1 00 	sts	0x00B1, r1
+ 24c:	10 92 c1 00 	sts	0x00C1, r1
 	send_Uart_str("impulseLeft = ");
  250:	84 e6       	ldi	r24, 0x64	; 100
  252:	90 e0       	ldi	r25, 0x00	; 0
  254:	0e 94 56 00 	call	0xac	; 0xac <_Z13send_Uart_strPKc>
 	send_int_Uart(impulseLeftPerWheel);
- 258:	80 91 ba 00 	lds	r24, 0x00BA
- 25c:	90 91 bb 00 	lds	r25, 0x00BB
+ 258:	80 91 ca 00 	lds	r24, 0x00CA
+ 25c:	90 91 cb 00 	lds	r25, 0x00CB
  260:	0e 94 65 00 	call	0xca	; 0xca <_Z13send_int_Uartj>
 	send_Uart_str(" OCR1A = ");
  264:	83 e7       	ldi	r24, 0x73	; 115
@@ -399,8 +399,8 @@ ISR( INT0_vect )
  274:	8d e0       	ldi	r24, 0x0D	; 13
  276:	0e 94 52 00 	call	0xa4	; 0xa4 <_Z9send_Uarth>
 	impulseLeftPerWheel = 0;
- 27a:	10 92 bb 00 	sts	0x00BB, r1
- 27e:	10 92 ba 00 	sts	0x00BA, r1
+ 27a:	10 92 cb 00 	sts	0x00CB, r1
+ 27e:	10 92 ca 00 	sts	0x00CA, r1
 }
  282:	ff 91       	pop	r31
  284:	ef 91       	pop	r30
@@ -441,19 +441,19 @@ ISR( INT1_vect ){
  2c2:	ef 93       	push	r30
  2c4:	ff 93       	push	r31
 	impulseRightPerWheeltemp = impulseRightPerWheel;
- 2c6:	80 91 b6 00 	lds	r24, 0x00B6
- 2ca:	90 91 b7 00 	lds	r25, 0x00B7
- 2ce:	90 93 b5 00 	sts	0x00B5, r25
- 2d2:	80 93 b4 00 	sts	0x00B4, r24
+ 2c6:	80 91 c6 00 	lds	r24, 0x00C6
+ 2ca:	90 91 c7 00 	lds	r25, 0x00C7
+ 2ce:	90 93 c5 00 	sts	0x00C5, r25
+ 2d2:	80 93 c4 00 	sts	0x00C4, r24
 	isImpulseRightUsed = false;
- 2d6:	10 92 b0 00 	sts	0x00B0, r1
+ 2d6:	10 92 c0 00 	sts	0x00C0, r1
 	send_Uart_str("impulseRight = ");
  2da:	8d e7       	ldi	r24, 0x7D	; 125
  2dc:	90 e0       	ldi	r25, 0x00	; 0
  2de:	0e 94 56 00 	call	0xac	; 0xac <_Z13send_Uart_strPKc>
 	send_int_Uart(impulseRightPerWheel);
- 2e2:	80 91 b6 00 	lds	r24, 0x00B6
- 2e6:	90 91 b7 00 	lds	r25, 0x00B7
+ 2e2:	80 91 c6 00 	lds	r24, 0x00C6
+ 2e6:	90 91 c7 00 	lds	r25, 0x00C7
  2ea:	0e 94 65 00 	call	0xca	; 0xca <_Z13send_int_Uartj>
 	send_Uart_str(" OCR1B = ");
  2ee:	8d e8       	ldi	r24, 0x8D	; 141
@@ -467,8 +467,8 @@ ISR( INT1_vect ){
  2fe:	8d e0       	ldi	r24, 0x0D	; 13
  300:	0e 94 52 00 	call	0xa4	; 0xa4 <_Z9send_Uarth>
 	impulseRightPerWheel = 0;
- 304:	10 92 b7 00 	sts	0x00B7, r1
- 308:	10 92 b6 00 	sts	0x00B6, r1
+ 304:	10 92 c7 00 	sts	0x00C7, r1
+ 308:	10 92 c6 00 	sts	0x00C6, r1
 }
  30c:	ff 91       	pop	r31
  30e:	ef 91       	pop	r30
@@ -499,17 +499,17 @@ ISR(TIMER0_OVF_vect){
  338:	8f 93       	push	r24
  33a:	9f 93       	push	r25
 	impulseLeftPerWheel++;
- 33c:	80 91 ba 00 	lds	r24, 0x00BA
- 340:	90 91 bb 00 	lds	r25, 0x00BB
+ 33c:	80 91 ca 00 	lds	r24, 0x00CA
+ 340:	90 91 cb 00 	lds	r25, 0x00CB
  344:	01 96       	adiw	r24, 0x01	; 1
- 346:	90 93 bb 00 	sts	0x00BB, r25
- 34a:	80 93 ba 00 	sts	0x00BA, r24
+ 346:	90 93 cb 00 	sts	0x00CB, r25
+ 34a:	80 93 ca 00 	sts	0x00CA, r24
 	impulseRightPerWheel++;
- 34e:	80 91 b6 00 	lds	r24, 0x00B6
- 352:	90 91 b7 00 	lds	r25, 0x00B7
+ 34e:	80 91 c6 00 	lds	r24, 0x00C6
+ 352:	90 91 c7 00 	lds	r25, 0x00C7
  356:	01 96       	adiw	r24, 0x01	; 1
- 358:	90 93 b7 00 	sts	0x00B7, r25
- 35c:	80 93 b6 00 	sts	0x00B6, r24
+ 358:	90 93 c7 00 	sts	0x00C7, r25
+ 35c:	80 93 c6 00 	sts	0x00C6, r24
 }
  360:	9f 91       	pop	r25
  362:	8f 91       	pop	r24
@@ -526,209 +526,258 @@ void MoveForward(){
  36e:	87 e9       	ldi	r24, 0x97	; 151
  370:	90 e0       	ldi	r25, 0x00	; 0
  372:	0e 94 56 00 	call	0xac	; 0xac <_Z13send_Uart_strPKc>
-	send_Uart(13);					//	перенос строки
- 376:	8d e0       	ldi	r24, 0x0D	; 13
- 378:	0e 94 52 00 	call	0xa4	; 0xa4 <_Z9send_Uarth>
 	PORTA |= (1<<POWER_LEFT_MOTOR) | (1<<POWER_RIGHT_MOTOR); 
- 37c:	8b b3       	in	r24, 0x1b	; 27
- 37e:	80 65       	ori	r24, 0x50	; 80
- 380:	8b bb       	out	0x1b, r24	; 27
+ 376:	8b b3       	in	r24, 0x1b	; 27
+ 378:	80 65       	ori	r24, 0x50	; 80
+ 37a:	8b bb       	out	0x1b, r24	; 27
 	if(!isImpulseLeftUsed && !isImpulseRightUsed){
- 382:	80 91 b1 00 	lds	r24, 0x00B1
- 386:	81 11       	cpse	r24, r1
- 388:	17 c0       	rjmp	.+46     	; 0x3b8 <_Z11MoveForwardv+0x4a>
- 38a:	80 91 b0 00 	lds	r24, 0x00B0
- 38e:	81 11       	cpse	r24, r1
- 390:	13 c0       	rjmp	.+38     	; 0x3b8 <_Z11MoveForwardv+0x4a>
+ 37c:	80 91 c1 00 	lds	r24, 0x00C1
+ 380:	81 11       	cpse	r24, r1
+ 382:	29 c0       	rjmp	.+82     	; 0x3d6 <_Z11MoveForwardv+0x68>
+ 384:	80 91 c0 00 	lds	r24, 0x00C0
+ 388:	81 11       	cpse	r24, r1
+ 38a:	25 c0       	rjmp	.+74     	; 0x3d6 <_Z11MoveForwardv+0x68>
 	compareTemp = impulseLeftPerWheeltemp - impulseRightPerWheeltemp;
- 392:	80 91 b8 00 	lds	r24, 0x00B8
- 396:	90 91 b9 00 	lds	r25, 0x00B9
- 39a:	20 91 b4 00 	lds	r18, 0x00B4
- 39e:	30 91 b5 00 	lds	r19, 0x00B5
- 3a2:	82 1b       	sub	r24, r18
- 3a4:	93 0b       	sbc	r25, r19
- 3a6:	90 93 b3 00 	sts	0x00B3, r25
- 3aa:	80 93 b2 00 	sts	0x00B2, r24
+ 38c:	80 91 c8 00 	lds	r24, 0x00C8
+ 390:	90 91 c9 00 	lds	r25, 0x00C9
+ 394:	20 91 c4 00 	lds	r18, 0x00C4
+ 398:	30 91 c5 00 	lds	r19, 0x00C5
+ 39c:	82 1b       	sub	r24, r18
+ 39e:	93 0b       	sbc	r25, r19
+ 3a0:	90 93 c3 00 	sts	0x00C3, r25
+ 3a4:	80 93 c2 00 	sts	0x00C2, r24
 	isImpulseLeftUsed = true; isImpulseRightUsed = true;
- 3ae:	81 e0       	ldi	r24, 0x01	; 1
- 3b0:	80 93 b1 00 	sts	0x00B1, r24
- 3b4:	80 93 b0 00 	sts	0x00B0, r24
+ 3a8:	81 e0       	ldi	r24, 0x01	; 1
+ 3aa:	80 93 c1 00 	sts	0x00C1, r24
+ 3ae:	80 93 c0 00 	sts	0x00C0, r24
+	impulseLeftPerWheeltemp = 0; impulseRightPerWheeltemp = 0;
+ 3b2:	10 92 c9 00 	sts	0x00C9, r1
+ 3b6:	10 92 c8 00 	sts	0x00C8, r1
+ 3ba:	10 92 c5 00 	sts	0x00C5, r1
+ 3be:	10 92 c4 00 	sts	0x00C4, r1
+	send_Uart_str("  comparetemp = ");
+ 3c2:	83 ea       	ldi	r24, 0xA3	; 163
+ 3c4:	90 e0       	ldi	r25, 0x00	; 0
+ 3c6:	0e 94 56 00 	call	0xac	; 0xac <_Z13send_Uart_strPKc>
+	send_int_Uart(compareTemp);
+ 3ca:	80 91 c2 00 	lds	r24, 0x00C2
+ 3ce:	90 91 c3 00 	lds	r25, 0x00C3
+ 3d2:	0e 94 65 00 	call	0xca	; 0xca <_Z13send_int_Uartj>
 	}
-	if (compareTemp<0-COMPARE_RATE){LeftBalancePWM += 5;}
- 3b8:	80 91 b2 00 	lds	r24, 0x00B2
- 3bc:	90 91 b3 00 	lds	r25, 0x00B3
- 3c0:	8c 3e       	cpi	r24, 0xEC	; 236
- 3c2:	2f ef       	ldi	r18, 0xFF	; 255
- 3c4:	92 07       	cpc	r25, r18
- 3c6:	54 f4       	brge	.+20     	; 0x3dc <_Z11MoveForwardv+0x6e>
- 3c8:	20 91 be 00 	lds	r18, 0x00BE
- 3cc:	30 91 bf 00 	lds	r19, 0x00BF
- 3d0:	2b 5f       	subi	r18, 0xFB	; 251
- 3d2:	3f 4f       	sbci	r19, 0xFF	; 255
- 3d4:	30 93 bf 00 	sts	0x00BF, r19
- 3d8:	20 93 be 00 	sts	0x00BE, r18
-	if (compareTemp>0+COMPARE_RATE){RightBalancePWM += 5;}
- 3dc:	45 97       	sbiw	r24, 0x15	; 21
- 3de:	4c f0       	brlt	.+18     	; 0x3f2 <_Z11MoveForwardv+0x84>
- 3e0:	80 91 bc 00 	lds	r24, 0x00BC
- 3e4:	90 91 bd 00 	lds	r25, 0x00BD
- 3e8:	05 96       	adiw	r24, 0x05	; 5
- 3ea:	90 93 bd 00 	sts	0x00BD, r25
- 3ee:	80 93 bc 00 	sts	0x00BC, r24
+	
+	send_Uart(13);		
+ 3d6:	8d e0       	ldi	r24, 0x0D	; 13
+ 3d8:	0e 94 52 00 	call	0xa4	; 0xa4 <_Z9send_Uarth>
+	if (compareTemp<0-COMPARE_RATE){
+ 3dc:	80 91 c2 00 	lds	r24, 0x00C2
+ 3e0:	90 91 c3 00 	lds	r25, 0x00C3
+ 3e4:	8c 3e       	cpi	r24, 0xEC	; 236
+ 3e6:	2f ef       	ldi	r18, 0xFF	; 255
+ 3e8:	92 07       	cpc	r25, r18
+ 3ea:	d4 f4       	brge	.+52     	; 0x420 <_Z11MoveForwardv+0xb2>
+		if (OCR1A < 255){
+ 3ec:	2a b5       	in	r18, 0x2a	; 42
+ 3ee:	3b b5       	in	r19, 0x2b	; 43
+ 3f0:	2f 3f       	cpi	r18, 0xFF	; 255
+ 3f2:	31 05       	cpc	r19, r1
+ 3f4:	58 f4       	brcc	.+22     	; 0x40c <_Z11MoveForwardv+0x9e>
+			LeftBalancePWM += 5;
+ 3f6:	20 91 ce 00 	lds	r18, 0x00CE
+ 3fa:	30 91 cf 00 	lds	r19, 0x00CF
+ 3fe:	2b 5f       	subi	r18, 0xFB	; 251
+ 400:	3f 4f       	sbci	r19, 0xFF	; 255
+ 402:	30 93 cf 00 	sts	0x00CF, r19
+ 406:	20 93 ce 00 	sts	0x00CE, r18
+ 40a:	0a c0       	rjmp	.+20     	; 0x420 <_Z11MoveForwardv+0xb2>
+		}else{
+			RightBalancePWM -=5;
+ 40c:	20 91 cc 00 	lds	r18, 0x00CC
+ 410:	30 91 cd 00 	lds	r19, 0x00CD
+ 414:	25 50       	subi	r18, 0x05	; 5
+ 416:	31 09       	sbc	r19, r1
+ 418:	30 93 cd 00 	sts	0x00CD, r19
+ 41c:	20 93 cc 00 	sts	0x00CC, r18
+		}
+	}
+	if (compareTemp>0+COMPARE_RATE){
+ 420:	45 97       	sbiw	r24, 0x15	; 21
+ 422:	c4 f0       	brlt	.+48     	; 0x454 <_Z11MoveForwardv+0xe6>
+		if(OCR1B< 255){
+ 424:	88 b5       	in	r24, 0x28	; 40
+ 426:	99 b5       	in	r25, 0x29	; 41
+ 428:	8f 3f       	cpi	r24, 0xFF	; 255
+ 42a:	91 05       	cpc	r25, r1
+ 42c:	50 f4       	brcc	.+20     	; 0x442 <_Z11MoveForwardv+0xd4>
+			RightBalancePWM += 5;
+ 42e:	80 91 cc 00 	lds	r24, 0x00CC
+ 432:	90 91 cd 00 	lds	r25, 0x00CD
+ 436:	05 96       	adiw	r24, 0x05	; 5
+ 438:	90 93 cd 00 	sts	0x00CD, r25
+ 43c:	80 93 cc 00 	sts	0x00CC, r24
+ 440:	09 c0       	rjmp	.+18     	; 0x454 <_Z11MoveForwardv+0xe6>
+		}else{
+			LeftBalancePWM-=5;
+ 442:	80 91 ce 00 	lds	r24, 0x00CE
+ 446:	90 91 cf 00 	lds	r25, 0x00CF
+ 44a:	05 97       	sbiw	r24, 0x05	; 5
+ 44c:	90 93 cf 00 	sts	0x00CF, r25
+ 450:	80 93 ce 00 	sts	0x00CE, r24
+		}
+	}
 	compareTemp = 0;	
- 3f2:	10 92 b3 00 	sts	0x00B3, r1
- 3f6:	10 92 b2 00 	sts	0x00B2, r1
-	OCR1A = (WholePWM+LeftBalancePWM)*Spiral;
- 3fa:	40 91 62 00 	lds	r20, 0x0062
- 3fe:	50 91 63 00 	lds	r21, 0x0063
- 402:	80 91 be 00 	lds	r24, 0x00BE
- 406:	90 91 bf 00 	lds	r25, 0x00BF
- 40a:	48 0f       	add	r20, r24
- 40c:	59 1f       	adc	r21, r25
- 40e:	20 91 60 00 	lds	r18, 0x0060
- 412:	30 91 61 00 	lds	r19, 0x0061
- 416:	42 9f       	mul	r20, r18
- 418:	c0 01       	movw	r24, r0
- 41a:	43 9f       	mul	r20, r19
- 41c:	90 0d       	add	r25, r0
- 41e:	52 9f       	mul	r21, r18
- 420:	90 0d       	add	r25, r0
- 422:	11 24       	eor	r1, r1
- 424:	9b bd       	out	0x2b, r25	; 43
- 426:	8a bd       	out	0x2a, r24	; 42
-	OCR1B = WholePWM+RightBalancePWM;
- 428:	20 91 62 00 	lds	r18, 0x0062
- 42c:	30 91 63 00 	lds	r19, 0x0063
- 430:	80 91 bc 00 	lds	r24, 0x00BC
- 434:	90 91 bd 00 	lds	r25, 0x00BD
- 438:	82 0f       	add	r24, r18
- 43a:	93 1f       	adc	r25, r19
- 43c:	99 bd       	out	0x29, r25	; 41
- 43e:	88 bd       	out	0x28, r24	; 40
- 440:	08 95       	ret
+ 454:	10 92 c3 00 	sts	0x00C3, r1
+ 458:	10 92 c2 00 	sts	0x00C2, r1
+	OCR1B = (WholePWM+LeftBalancePWM)*Spiral;
+ 45c:	40 91 62 00 	lds	r20, 0x0062
+ 460:	50 91 63 00 	lds	r21, 0x0063
+ 464:	80 91 ce 00 	lds	r24, 0x00CE
+ 468:	90 91 cf 00 	lds	r25, 0x00CF
+ 46c:	48 0f       	add	r20, r24
+ 46e:	59 1f       	adc	r21, r25
+ 470:	20 91 60 00 	lds	r18, 0x0060
+ 474:	30 91 61 00 	lds	r19, 0x0061
+ 478:	42 9f       	mul	r20, r18
+ 47a:	c0 01       	movw	r24, r0
+ 47c:	43 9f       	mul	r20, r19
+ 47e:	90 0d       	add	r25, r0
+ 480:	52 9f       	mul	r21, r18
+ 482:	90 0d       	add	r25, r0
+ 484:	11 24       	eor	r1, r1
+ 486:	99 bd       	out	0x29, r25	; 41
+ 488:	88 bd       	out	0x28, r24	; 40
+	OCR1A = WholePWM+RightBalancePWM;
+ 48a:	20 91 62 00 	lds	r18, 0x0062
+ 48e:	30 91 63 00 	lds	r19, 0x0063
+ 492:	80 91 cc 00 	lds	r24, 0x00CC
+ 496:	90 91 cd 00 	lds	r25, 0x00CD
+ 49a:	82 0f       	add	r24, r18
+ 49c:	93 1f       	adc	r25, r19
+ 49e:	9b bd       	out	0x2b, r25	; 43
+ 4a0:	8a bd       	out	0x2a, r24	; 42
+ 4a2:	08 95       	ret
 
-00000442 <_Z9PortsInitv>:
+000004a4 <_Z9PortsInitv>:
 }
 
 void PortsInit(){
 	DDRA |= (1<<PA4)|(1<<PA5)|(1<<PA6)|(1<<PA7); // set driver outputs to exit
- 442:	8a b3       	in	r24, 0x1a	; 26
- 444:	80 6f       	ori	r24, 0xF0	; 240
- 446:	8a bb       	out	0x1a, r24	; 26
+ 4a4:	8a b3       	in	r24, 0x1a	; 26
+ 4a6:	80 6f       	ori	r24, 0xF0	; 240
+ 4a8:	8a bb       	out	0x1a, r24	; 26
 	DDRC |= (1<<PC7); // signaling led
- 448:	a7 9a       	sbi	0x14, 7	; 20
+ 4aa:	a7 9a       	sbi	0x14, 7	; 20
 	PORTA |= (1<<POWER_LEFT_MOTOR) | (1<<POWER_RIGHT_MOTOR); 
- 44a:	8b b3       	in	r24, 0x1b	; 27
- 44c:	80 65       	ori	r24, 0x50	; 80
- 44e:	8b bb       	out	0x1b, r24	; 27
- 450:	08 95       	ret
+ 4ac:	8b b3       	in	r24, 0x1b	; 27
+ 4ae:	80 65       	ori	r24, 0x50	; 80
+ 4b0:	8b bb       	out	0x1b, r24	; 27
+ 4b2:	08 95       	ret
 
-00000452 <main>:
+000004b4 <main>:
 }
 
 
 int main()
 {
 	init_UART();					//	инициализация UART
- 452:	0e 94 49 00 	call	0x92	; 0x92 <_Z9init_UARTv>
+ 4b4:	0e 94 49 00 	call	0x92	; 0x92 <_Z9init_UARTv>
 	#else
 		//round up by default
 		__ticks_dc = (uint32_t)(ceil(fabs(__tmp)));
 	#endif
 
 	__builtin_avr_delay_cycles(__ticks_dc);
- 456:	2f e3       	ldi	r18, 0x3F	; 63
- 458:	8d e0       	ldi	r24, 0x0D	; 13
- 45a:	93 e0       	ldi	r25, 0x03	; 3
- 45c:	21 50       	subi	r18, 0x01	; 1
- 45e:	80 40       	sbci	r24, 0x00	; 0
- 460:	90 40       	sbci	r25, 0x00	; 0
- 462:	e1 f7       	brne	.-8      	; 0x45c <main+0xa>
- 464:	00 c0       	rjmp	.+0      	; 0x466 <__stack+0x7>
- 466:	00 00       	nop
+ 4b8:	2f e3       	ldi	r18, 0x3F	; 63
+ 4ba:	8d e0       	ldi	r24, 0x0D	; 13
+ 4bc:	93 e0       	ldi	r25, 0x03	; 3
+ 4be:	21 50       	subi	r18, 0x01	; 1
+ 4c0:	80 40       	sbci	r24, 0x00	; 0
+ 4c2:	90 40       	sbci	r25, 0x00	; 0
+ 4c4:	e1 f7       	brne	.-8      	; 0x4be <main+0xa>
+ 4c6:	00 c0       	rjmp	.+0      	; 0x4c8 <main+0x14>
+ 4c8:	00 00       	nop
 	_delay_ms(1000);				//	задержка 1c
 	send_Uart_str("alex-exe.ru");	//	отправка строки
- 468:	83 ea       	ldi	r24, 0xA3	; 163
- 46a:	90 e0       	ldi	r25, 0x00	; 0
- 46c:	0e 94 56 00 	call	0xac	; 0xac <_Z13send_Uart_strPKc>
+ 4ca:	84 eb       	ldi	r24, 0xB4	; 180
+ 4cc:	90 e0       	ldi	r25, 0x00	; 0
+ 4ce:	0e 94 56 00 	call	0xac	; 0xac <_Z13send_Uart_strPKc>
 	send_Uart(13);					//	перенос строки
- 470:	8d e0       	ldi	r24, 0x0D	; 13
- 472:	0e 94 52 00 	call	0xa4	; 0xa4 <_Z9send_Uarth>
+ 4d2:	8d e0       	ldi	r24, 0x0D	; 13
+ 4d4:	0e 94 52 00 	call	0xa4	; 0xa4 <_Z9send_Uarth>
 	send_int_Uart(2013);			//	отправка числа
- 476:	8d ed       	ldi	r24, 0xDD	; 221
- 478:	97 e0       	ldi	r25, 0x07	; 7
- 47a:	0e 94 65 00 	call	0xca	; 0xca <_Z13send_int_Uartj>
+ 4d8:	8d ed       	ldi	r24, 0xDD	; 221
+ 4da:	97 e0       	ldi	r25, 0x07	; 7
+ 4dc:	0e 94 65 00 	call	0xca	; 0xca <_Z13send_int_Uartj>
 	send_Uart(13);					//	перенос строки
- 47e:	8d e0       	ldi	r24, 0x0D	; 13
- 480:	0e 94 52 00 	call	0xa4	; 0xa4 <_Z9send_Uarth>
+ 4e0:	8d e0       	ldi	r24, 0x0D	; 13
+ 4e2:	0e 94 52 00 	call	0xa4	; 0xa4 <_Z9send_Uarth>
 	
 	init_pwm();
- 484:	0e 94 d1 00 	call	0x1a2	; 0x1a2 <_Z8init_pwmv>
+ 4e6:	0e 94 d1 00 	call	0x1a2	; 0x1a2 <_Z8init_pwmv>
 	externalIntInit();
- 488:	0e 94 05 01 	call	0x20a	; 0x20a <_Z15externalIntInitv>
+ 4ea:	0e 94 05 01 	call	0x20a	; 0x20a <_Z15externalIntInitv>
 	initTimer();
- 48c:	0e 94 fe 00 	call	0x1fc	; 0x1fc <_Z9initTimerv>
+ 4ee:	0e 94 fe 00 	call	0x1fc	; 0x1fc <_Z9initTimerv>
 	PortsInit();
- 490:	0e 94 21 02 	call	0x442	; 0x442 <_Z9PortsInitv>
+ 4f2:	0e 94 52 02 	call	0x4a4	; 0x4a4 <_Z9PortsInitv>
 
 	send_int_Uart(OCR2);
- 494:	83 b5       	in	r24, 0x23	; 35
- 496:	90 e0       	ldi	r25, 0x00	; 0
- 498:	0e 94 65 00 	call	0xca	; 0xca <_Z13send_int_Uartj>
+ 4f6:	83 b5       	in	r24, 0x23	; 35
+ 4f8:	90 e0       	ldi	r25, 0x00	; 0
+ 4fa:	0e 94 65 00 	call	0xca	; 0xca <_Z13send_int_Uartj>
 	send_int_Uart(OCR0);
- 49c:	8c b7       	in	r24, 0x3c	; 60
- 49e:	90 e0       	ldi	r25, 0x00	; 0
- 4a0:	0e 94 65 00 	call	0xca	; 0xca <_Z13send_int_Uartj>
+ 4fe:	8c b7       	in	r24, 0x3c	; 60
+ 500:	90 e0       	ldi	r25, 0x00	; 0
+ 502:	0e 94 65 00 	call	0xca	; 0xca <_Z13send_int_Uartj>
 	
 	PORTC |= (1<<PC7);
- 4a4:	af 9a       	sbi	0x15, 7	; 21
- 4a6:	2f e3       	ldi	r18, 0x3F	; 63
- 4a8:	8d e0       	ldi	r24, 0x0D	; 13
- 4aa:	93 e0       	ldi	r25, 0x03	; 3
- 4ac:	21 50       	subi	r18, 0x01	; 1
- 4ae:	80 40       	sbci	r24, 0x00	; 0
- 4b0:	90 40       	sbci	r25, 0x00	; 0
- 4b2:	e1 f7       	brne	.-8      	; 0x4ac <__stack+0x4d>
- 4b4:	00 c0       	rjmp	.+0      	; 0x4b6 <__stack+0x57>
- 4b6:	00 00       	nop
+ 506:	af 9a       	sbi	0x15, 7	; 21
+ 508:	2f e3       	ldi	r18, 0x3F	; 63
+ 50a:	8d e0       	ldi	r24, 0x0D	; 13
+ 50c:	93 e0       	ldi	r25, 0x03	; 3
+ 50e:	21 50       	subi	r18, 0x01	; 1
+ 510:	80 40       	sbci	r24, 0x00	; 0
+ 512:	90 40       	sbci	r25, 0x00	; 0
+ 514:	e1 f7       	brne	.-8      	; 0x50e <main+0x5a>
+ 516:	00 c0       	rjmp	.+0      	; 0x518 <main+0x64>
+ 518:	00 00       	nop
 	_delay_ms(1000);
 	PORTC &= ~(1<<PC7);
- 4b8:	af 98       	cbi	0x15, 7	; 21
- 4ba:	2f e3       	ldi	r18, 0x3F	; 63
- 4bc:	8d e0       	ldi	r24, 0x0D	; 13
- 4be:	93 e0       	ldi	r25, 0x03	; 3
- 4c0:	21 50       	subi	r18, 0x01	; 1
- 4c2:	80 40       	sbci	r24, 0x00	; 0
- 4c4:	90 40       	sbci	r25, 0x00	; 0
- 4c6:	e1 f7       	brne	.-8      	; 0x4c0 <__stack+0x61>
- 4c8:	00 c0       	rjmp	.+0      	; 0x4ca <__stack+0x6b>
- 4ca:	00 00       	nop
+ 51a:	af 98       	cbi	0x15, 7	; 21
+ 51c:	2f e3       	ldi	r18, 0x3F	; 63
+ 51e:	8d e0       	ldi	r24, 0x0D	; 13
+ 520:	93 e0       	ldi	r25, 0x03	; 3
+ 522:	21 50       	subi	r18, 0x01	; 1
+ 524:	80 40       	sbci	r24, 0x00	; 0
+ 526:	90 40       	sbci	r25, 0x00	; 0
+ 528:	e1 f7       	brne	.-8      	; 0x522 <main+0x6e>
+ 52a:	00 c0       	rjmp	.+0      	; 0x52c <main+0x78>
+ 52c:	00 00       	nop
 	_delay_ms(1000);
      
   	while(1){
 			MoveForward();
- 4cc:	0e 94 b7 01 	call	0x36e	; 0x36e <_Z11MoveForwardv>
- 4d0:	fd cf       	rjmp	.-6      	; 0x4cc <__stack+0x6d>
+ 52e:	0e 94 b7 01 	call	0x36e	; 0x36e <_Z11MoveForwardv>
+ 532:	fd cf       	rjmp	.-6      	; 0x52e <main+0x7a>
 
-000004d2 <__umulhisi3>:
- 4d2:	a2 9f       	mul	r26, r18
- 4d4:	b0 01       	movw	r22, r0
- 4d6:	b3 9f       	mul	r27, r19
- 4d8:	c0 01       	movw	r24, r0
- 4da:	a3 9f       	mul	r26, r19
- 4dc:	70 0d       	add	r23, r0
- 4de:	81 1d       	adc	r24, r1
- 4e0:	11 24       	eor	r1, r1
- 4e2:	91 1d       	adc	r25, r1
- 4e4:	b2 9f       	mul	r27, r18
- 4e6:	70 0d       	add	r23, r0
- 4e8:	81 1d       	adc	r24, r1
- 4ea:	11 24       	eor	r1, r1
- 4ec:	91 1d       	adc	r25, r1
- 4ee:	08 95       	ret
+00000534 <__umulhisi3>:
+ 534:	a2 9f       	mul	r26, r18
+ 536:	b0 01       	movw	r22, r0
+ 538:	b3 9f       	mul	r27, r19
+ 53a:	c0 01       	movw	r24, r0
+ 53c:	a3 9f       	mul	r26, r19
+ 53e:	70 0d       	add	r23, r0
+ 540:	81 1d       	adc	r24, r1
+ 542:	11 24       	eor	r1, r1
+ 544:	91 1d       	adc	r25, r1
+ 546:	b2 9f       	mul	r27, r18
+ 548:	70 0d       	add	r23, r0
+ 54a:	81 1d       	adc	r24, r1
+ 54c:	11 24       	eor	r1, r1
+ 54e:	91 1d       	adc	r25, r1
+ 550:	08 95       	ret
 
-000004f0 <_exit>:
- 4f0:	f8 94       	cli
+00000552 <_exit>:
+ 552:	f8 94       	cli
 
-000004f2 <__stop_program>:
- 4f2:	ff cf       	rjmp	.-2      	; 0x4f2 <__stop_program>
+00000554 <__stop_program>:
+ 554:	ff cf       	rjmp	.-2      	; 0x554 <__stop_program>
